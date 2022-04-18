@@ -1,0 +1,31 @@
+
+body {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: black;
+  background: white;
+
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  &.background {
+    height: 100%;
+
+    main {
+      margin: 0 !important;
+      height: 100%;
+
+      .container {
+        height: 100%;
+      }
+    }
+  }
+}
+
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
