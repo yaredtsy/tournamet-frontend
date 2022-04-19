@@ -4,7 +4,7 @@ import {
   CardBody,
   CardTitle,
   Container,
-  Form,
+  
   FormGroup,
   Label,
   Row,
@@ -14,11 +14,17 @@ import {
   Tooltip,
 } from "reactstrap";
 
-import { Field, Formik } from "formik";
+import {useDispatch} from  'react-redux'
+import { Field, Formik,Form } from "formik";
 import * as Yup from "yup";
 
+import {userAction} from 'store/user/reducer';
+
 function LoginPage() {
+  const dispatch = useDispatch();
+
   const [istoggle, setToggle] = useState(false);
+  
   const validateScheme = Yup.object({
     phoneNumber: Yup.string()
       .required("Please Enter you phone number")
@@ -26,7 +32,13 @@ function LoginPage() {
       .min(9, "the phone number must be at least 9 characters"),
   });
 
-  const handleSubmit = () => {};
+  const handleSubmit = ({phoneNumber}:{phoneNumber: string}) => {
+    console.log("handleSubmit");
+    
+    console.log(phoneNumber);
+    dispatch(userAction.loginstart(phoneNumber))
+    
+  };
   const phoneNumber: string = "";
 
   return (
@@ -64,7 +76,7 @@ function LoginPage() {
                       {errors.phoneNumber && touched.phoneNumber && (
                         <small
                           id="phoneNumber"
-                          className="form-text text-muted"
+                          className="form-text text-muted text-error"
                         >
                           {errors.phoneNumber}.
                         </small>
