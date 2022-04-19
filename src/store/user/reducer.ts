@@ -1,10 +1,13 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserType} from 'store/user/user';
+import { ConfirmationResult, UserCredential } from 'firebase/auth';
+import {UserStateType} from 'store/user/user';
 
-const initialState = {
+
+const initialState:UserStateType = {
     user: null,
-    loading: false,
-    error: null
+    isLoading: false,
+    error: '',
+    firebaseConfirmation: null, 
 }
 
 export const userSlice = createSlice({
@@ -12,13 +15,27 @@ export const userSlice = createSlice({
     initialState,
     reducers:{
         loginstart:(state,action:PayloadAction<string>)=>{
-            state.loading = true
-        },
-        loginsucces:(state,action:PayloadAction<string>)=>{
+            state.isLoading = true
 
         },
-        logoutfailed:(state,action:PayloadAction<string>)=>{}
-         
+        loginsuccess:(state,action:PayloadAction<ConfirmationResult|null>)=>{
+            
+            state.firebaseConfirmation = action.payload
+            state.isLoading = false;
+        },
+        logoutfailed:(state,action:PayloadAction<string>)=>{
+            state.error = action.payload;
+        },
+
+        otpConfirmStart:(state,action:PayloadAction<{otpCode:string,firebaseConfirmation:ConfirmationResult|null}>)=>{
+            state.isLoading = true;
+        },
+        otpConfirmSuccess:(state,action:PayloadAction<UserCredential>)=>{
+            state.user = action.payload
+        },
+        otpConfirmFailed:(state,action:PayloadAction<string>)=>{
+
+        }
     }
 })
 

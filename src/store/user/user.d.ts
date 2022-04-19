@@ -1,14 +1,11 @@
-export interface UserType{
-    id:number;
-    phoneNumber:string;
-    token:string;
-}
+import { ConfirmationResult, UserCredential } from "firebase/auth";
+
 
 export interface UserStateType{
-    user: UserType | null;
-    loading: boolean;
+    user: UserCredential | null;
+    isLoading: boolean;
     error: string | null;
-    
+    firebaseConfirmation : ConfirmationResult | null;
 }
 
 export type Action = any;

@@ -7,7 +7,8 @@ import {
 } from 'react-router-dom';
 import {
   HomePage,
-  LoginPage
+  LoginPage,
+  OtpPage
 } from 'page';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -17,7 +18,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<LoginPage/>} />
+        <Route path='/otp-confirm' element={<OtpPage/>} />
         <Route path='/' element={<HomePage/>} />
+        
       </Routes>
     </BrowserRouter>
   

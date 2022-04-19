@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
   CardTitle,
   Container,
-  
   FormGroup,
   Label,
   Row,
@@ -13,31 +12,46 @@ import {
   Button,
   Tooltip,
 } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
-import {useDispatch} from  'react-redux'
-import { Field, Formik,Form } from "formik";
+import useTypedSelector from "hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 
-import {userAction} from 'store/user/reducer';
+import { userAction } from "store/user/reducer";
+import { ConfirmationResult } from "firebase/auth";
 
 function LoginPage() {
   const dispatch = useDispatch();
 
+  const {
+    firebaseConfirmation,
+    isLoading,
+  }: { firebaseConfirmation: ConfirmationResult|null; isLoading: boolean } = useTypedSelector(
+    (state) => state.user
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (firebaseConfirmation) {
+      navigate("/otp-confirm",{replace:true});
+    }
+  }, [firebaseConfirmation]);
   const [istoggle, setToggle] = useState(false);
-  
+
   const validateScheme = Yup.object({
     phoneNumber: Yup.string()
       .required("Please Enter you phone number")
-      .matches(/^[0-9]*$/, "The phone number must contain only numbers")
+      .matches(/^[+0-9]*$/, "The phone number must contain only numbers")
       .min(9, "the phone number must be at least 9 characters"),
   });
 
-  const handleSubmit = ({phoneNumber}:{phoneNumber: string}) => {
+  const handleSubmit = ({ phoneNumber }: { phoneNumber: string }) => {
     console.log("handleSubmit");
-    
+
     console.log(phoneNumber);
-    dispatch(userAction.loginstart(phoneNumber))
-    
+    dispatch(userAction.loginstart(phoneNumber));
   };
   const phoneNumber: string = "";
 
@@ -82,9 +96,14 @@ function LoginPage() {
                         </small>
                       )}
                     </FormGroup>
-                    <Button type="submit" color="primary">
-                      Login
-                    </Button>
+                    <div id="recaptcha-container" />
+                    {isLoading ? (
+                      <p>loading</p>
+                    ) : (
+                      <Button type="submit" color="primary">
+                        Login
+                      </Button>
+                    )}
                   </Form>
                 )}
               </Formik>
