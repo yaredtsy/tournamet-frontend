@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { HomePage, LoginPage, OtpPage } from "page";
 import { auth } from "utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -10,7 +10,7 @@ import { userAction } from "store/user/reducer";
 import { PrivateRoutes, PublicRoutes } from "components/routes";
 
 import "bootstrap/dist/css/bootstrap.css";
-import { RouteComponentProps, Router } from "@reach/router";
+import {Router } from "@reach/router";
 
 function App() {
   const dispatch = useDispatch();
