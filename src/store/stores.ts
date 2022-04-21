@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {composeWithDevTools} from 'redux-devtools-extension'
-import { userReducers } from "store/user/reducer";
+import { userReducers } from "store/user/slice";
 import createSagaMiddleware from "@redux-saga/core";
 import loger from 'redux-logger';
 

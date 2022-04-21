@@ -1,84 +1,89 @@
-import React from "react";
-import { useTable, useSortBy} from "react-table";
+import React, { useEffect, useState } from "react";
+import { useTable, useSortBy } from "react-table";
+import { db } from "utils/firebase";
+import {
+  collection,
+  getDoc,
+  getDocs,
+  where,
+  orderBy,
+  query,
+  doc,
+} from "firebase/firestore/lite";
 
 import { Container } from "reactstrap";
 import { NavBar } from "components/common";
+import KukuluTournamentTable from "components/table/KukuluTournamentTable";
 
 function HomePage() {
-  
-  const data = React.useMemo(
-    () => [
-    {
-      col1: "Hello",
-      col2: "World",
-    },
-    {
-      col1: "react-table",
-      col2: "rocks",
-    },
-    {
-      col1: "whatever",
-      col2: "you want",
-    },
-  ],[]);
+  // const data: ScoreBoardType[] = React.useMemo(() => [], []);
+
+  const [data,setList] = useState<ScoreBoardType[]>([])
+  useEffect(() => {
+    const tournaments = query(
+      collection(db, "tournamentPRO"),
+      where("state", "==", "OPENED")
+    );
+
+    getDocs(tournaments).then((result) => {
+      const list:ScoreBoardType[]|undefined = []
+      getDocs(collection(db, "tournamentPRO", result.docs[0].id, "user")).then(
+        (docs) => {
+          docs.forEach((user) => {
+            const userData = user.data();
+
+            const scorebaord: ScoreBoardType|undefined = {
+              name: user.data().name,
+              score: user.data().score,
+              rank: user.data().rank,
+            };
+
+           list.push(scorebaord)
+          });
+          setList(list);
+          console.log('tournamentPRO');
+        }
+      );
+      // const users = query()
+    });
+  }, []);
 
   const columns = React.useMemo(
     () => [
       {
         // first group - TV Show
-        Header: "TV Show",
+        Header: "name",
         // First group columns
-        accessor: "col1" as const,
+        accessor: "name" as const,
       },
       {
         // Second group - Details
-        Header: "Details",
+        Header: "score",
         // Second group columns
-        accessor: "col2" as const,
+        accessor: "score" as const,
+      },
+      {
+        // Second group - Details
+        Header: "rank",
+        // Second group columns
+        accessor: "rank" as const,
       },
     ],
     []
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data },useSortBy);
+ 
 
-  return (
-    <>
-      <NavBar />
-      <Container className="mt-5">
-        <table {...getTableProps()} className="table table-striped">
-          <thead className="thead-dark">
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                <th className="col">#</th>
-                {headerGroup.headers.map((column) => (
-                  <th className="col" {...column.getHeaderProps(column.getSortByToggleProps())}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row, index) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  <th scope="row">{index}</th>
-                  {row.cells.map((cell) => {
-                    return (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </Container>
-    </>
-  );
+  if (data.length == 0) return <>no user found</>;
+  else
+    return (
+      <>
+        <NavBar />
+        <Container className="mt-5">
+          <KukuluTournamentTable columns={columns} data={data} />
+        </Container>
+      </>
+    );
 }
 
 export default HomePage;

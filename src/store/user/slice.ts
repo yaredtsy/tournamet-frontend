@@ -35,6 +35,17 @@ export const userSlice = createSlice({
         },
         otpConfirmFailed:(state,action:PayloadAction<string>)=>{
             state.error = action.payload
+        },
+        logoutStart:(state,action:PayloadAction<string>)=>{
+            state.isLoading = true;
+        },
+        logoutSuccess:(state)=>{
+            state.isLoading = false;
+            state.firebaseConfirmation = null;
+            state.user = null;
+        },
+        logoutFailed:(state,action:PayloadAction<string>)=>{
+            state.isLoading = false;
         }
     }
 })

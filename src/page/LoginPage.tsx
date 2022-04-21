@@ -20,7 +20,7 @@ import { useDispatch } from "react-redux";
 import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 
-import { userAction } from "store/user/reducer";
+import { userAction } from "store/user/slice";
 import { ConfirmationResult } from "firebase/auth";
 
 function LoginPage() {

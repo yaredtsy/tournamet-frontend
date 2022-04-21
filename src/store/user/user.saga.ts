@@ -5,10 +5,10 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { userAction } from "store/user/reducer";
+import { userAction } from "store/user/slice";
 import { auth } from "utils/firebase";
 
-export function* LoginStartAync(action: { payload: string }) {
+export function* LoginStartAsync(action: { payload: string }) {
   try {
     const recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
@@ -21,7 +21,7 @@ export function* LoginStartAync(action: { payload: string }) {
       action.payload,
       recaptchaVerifier
     );
-  
+
     yield put(userAction.loginsuccess(result));
   } catch (err: any) {
     yield put(userAction.logoutfailed(err.message));
@@ -29,5 +29,17 @@ export function* LoginStartAync(action: { payload: string }) {
   }
 }
 export function* LoginStart() {
-  yield takeLatest(userAction.loginstart, LoginStartAync);
+  yield takeLatest(userAction.loginstart, LoginStartAsync);
+}
+
+export function* LogoutStartAsync(payload: string) {
+  try {
+    yield call(auth.signOut);
+    yield put(userAction.logoutSuccess())
+  } catch (error) {
+    yield put(userAction.logoutFailed('something is wrong'))
+  }
+}
+export function* LogoutStart() {
+  yield takeLatest(userAction.logoutStart, LoginStartAsync);
 }

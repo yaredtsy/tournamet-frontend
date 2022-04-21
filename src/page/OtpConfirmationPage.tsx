@@ -18,7 +18,7 @@ import * as Yup from "yup";
 
 import useTypedSelector from "hooks/useTypedSelector";
 
-import { userAction } from "store/user/reducer";
+import { userAction } from "store/user/slice";
 import { ConfirmationResult, UserCredential } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 

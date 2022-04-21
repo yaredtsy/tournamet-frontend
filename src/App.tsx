@@ -6,7 +6,7 @@ import { auth } from "utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
 
-import { userAction } from "store/user/reducer";
+import { userAction } from "store/user/slice";
 import { PrivateRoutes, PublicRoutes } from "components/routes";
 
 import "bootstrap/dist/css/bootstrap.css";
