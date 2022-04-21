@@ -16,7 +16,7 @@ function NavBar() {
     <Navbar className="navbar-dark bg-primary mr-auto ml-auto">
       <Container>
         <div className="d-flex align-items-center">
-          <div className="mr-auto">
+          <div className="me-auto">
             <NavbarBrand className="" href="#home">
               Kukulu
             </NavbarBrand>
@@ -24,7 +24,7 @@ function NavBar() {
           <div className="mr-0">
               
             <UncontrolledDropdown setActiveFromChild>
-              <DropdownToggle tag="a" className="nav-link white text-white" caret >
+              <DropdownToggle tag="a" className="nav-link white text-white select-cusror" caret >
                 profile
               </DropdownToggle>
               <DropdownMenu>

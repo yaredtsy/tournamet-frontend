@@ -1,13 +1,22 @@
+import { User } from "firebase/auth";
 import React from "react";
-import { Route } from "react-router-dom";
-interface PrivateRoutesProps {
-  component: any;
+import { Navigate, Route } from "react-router-dom";
+import { RouteComponentProps } from "@reach/router";
+
+interface PrivateRoutesProps extends RouteComponentProps{
+  element: any;
+  user: User | undefined | null;
+  
 }
 const PrivateRoutes: React.FC<PrivateRoutesProps> = ({
-  component: Component,
+  element,
+  user,
   ...rest
-}): React.ReactElement => (
-  <Route />
-);
+}): any => {
+  if(!user){
+    return <Navigate to="login" />
+  }
+  return {...element}
+};
 
 export default PrivateRoutes;
