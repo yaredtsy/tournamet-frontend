@@ -31,32 +31,3 @@ export function* LoginStartAync(action: { payload: string }) {
 export function* LoginStart() {
   yield takeLatest(userAction.loginstart, LoginStartAync);
 }
-
-
-export function* OtpConfirmAsync(action: {payload:{otpCode:string,firebaseConfirmation:ConfirmationResult|null}}) {
-    try {
-        if(action.payload.firebaseConfirmation){
-            const {confirm} = action.payload.firebaseConfirmation;
-            const {otpCode} = action.payload
-
-            console.log(" OtpConfirmAsync ");
-            console.log(otpCode);
-            console.log(action.payload.firebaseConfirmation.verificationId);
-            
-            // action.payload.firebaseConfirmation.confirm(action.payload.otpCode).then((result)=>{
-            //     console.log(result);
-                
-            // })
-            
-            const user:UserCredential = yield call(confirm,otpCode)
-            // console.log(user);
-            
-        }
-    } catch (error) {
-        console.log(error);
-        
-    }
-}
-export function* otpConfirmStart(){
-    yield takeLatest(userAction.otpConfirmStart,OtpConfirmAsync)
-}

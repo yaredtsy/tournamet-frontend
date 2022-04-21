@@ -59,7 +59,7 @@ function OtpConfirmation() {
       .then((user: UserCredential | null) => {
         if (user) {
           console.log(user.user);
-          dispatch(userAction.otpConfirmSuccess(user));
+          dispatch(userAction.otpConfirmSuccess(user.user));
           navigate("/");
         }
       })

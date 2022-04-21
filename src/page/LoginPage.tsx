@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import {
   Card,
   CardBody,
@@ -24,7 +25,8 @@ import { ConfirmationResult } from "firebase/auth";
 
 function LoginPage() {
   const dispatch = useDispatch();
-
+  console.log("LoginPage");
+  
   const {
     firebaseConfirmation,
     isLoading,

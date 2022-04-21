@@ -19,6 +19,18 @@ export const store = configureStore({
 });
 
 sagaMiddleware.run(rootsaga)
+let currentState = store.getState()
+
+store.subscribe(()=>{
+  
+  const previosState = currentState;
+  currentState = store.getState();
+
+  if(previosState.user.user !== currentState.user.user){
+    // setAuth()
+  }
+
+})
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

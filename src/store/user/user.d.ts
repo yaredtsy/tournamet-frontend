@@ -1,8 +1,8 @@
-import { ConfirmationResult, UserCredential } from "firebase/auth";
+import { ConfirmationResult, User } from "firebase/auth";
 
 
 export interface UserStateType{
-    user: UserCredential | null;
+    user: User | null;
     isLoading: boolean;
     error: string | null;
     firebaseConfirmation : ConfirmationResult | null;
