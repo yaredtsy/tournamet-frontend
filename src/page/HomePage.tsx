@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useTable, useSortBy } from "react-table";
+
 import { db } from "utils/firebase";
-import {
-  collection,
-  getDoc,
-  getDocs,
-  where,
-  orderBy,
-  query,
-  doc,
-} from "firebase/firestore/lite";
+import { collection, getDocs, where, query } from "firebase/firestore/lite";
 
 import { Container } from "reactstrap";
 import { NavBar } from "components/common";
@@ -18,30 +10,33 @@ import KukuluTournamentTable from "components/table/KukuluTournamentTable";
 function HomePage() {
   // const data: ScoreBoardType[] = React.useMemo(() => [], []);
 
-  const [data,setList] = useState<ScoreBoardType[]>([])
+  const [data, setList] = useState<PlayersType[]>([]);
   useEffect(() => {
     const tournaments = query(
       collection(db, "tournamentPRO"),
-      where("state", "==", "OPENED")
+      where("state", "!=", "OPENED")
     );
-
+    
+    
     getDocs(tournaments).then((result) => {
-      const list:ScoreBoardType[]|undefined = []
+      const list: PlayersType[] | undefined = [];
+      console.log(result);
+    
       getDocs(collection(db, "tournamentPRO", result.docs[0].id, "user")).then(
         (docs) => {
           docs.forEach((user) => {
             const userData = user.data();
 
-            const scorebaord: ScoreBoardType|undefined = {
+            const scorebaord: PlayersType | undefined = {
               name: user.data().name,
               score: user.data().score,
               rank: user.data().rank,
             };
 
-           list.push(scorebaord)
+            list.push(scorebaord);
           });
           setList(list);
-          console.log('tournamentPRO');
+          console.log("tournamentPRO");
         }
       );
       // const users = query()
@@ -72,18 +67,18 @@ function HomePage() {
     []
   );
 
- 
-
-  if (data.length == 0) return <>no user found</>;
-  else
-    return (
-      <>
-        <NavBar />
+  return (
+    <>
+      <NavBar />
+      {data.length == 0 ? (
+        <>no user found</>
+      ) : (
         <Container className="mt-5">
           <KukuluTournamentTable columns={columns} data={data} />
         </Container>
-      </>
-    );
+      )}
+    </>
+  );
 }
 
 export default HomePage;

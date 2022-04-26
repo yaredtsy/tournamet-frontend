@@ -1,6 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {composeWithDevTools} from 'redux-devtools-extension'
 import { userReducers } from "store/user/slice";
+
+import {scoreboardReducer} from "store/scoreboard/slice";
+
 import createSagaMiddleware from "@redux-saga/core";
 import loger from 'redux-logger';
 
@@ -12,6 +15,7 @@ const middleware = [sagaMiddleware,loger]
 export const store = configureStore({
   reducer: {
     user: userReducers,
+    scoreboard: scoreboardReducer,
   },
   devTools: true,
   middleware: middleware

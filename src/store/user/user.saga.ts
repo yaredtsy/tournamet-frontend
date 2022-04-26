@@ -9,7 +9,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 import { userAction } from "store/user/slice";
 import { auth } from "utils/firebase";
 
-export function* LoginStartAsync(action: { payload: string }) {
+function* LoginStartAsync(action: { payload: string }) {
   try {
     const recaptchaVerifier = new RecaptchaVerifier(
       "recaptcha-container",
@@ -33,7 +33,7 @@ export function* LoginStart() {
   yield takeLatest(userAction.loginstart, LoginStartAsync);
 }
 
-export function* LogoutStartAsync(payload: any) {
+function* LogoutStartAsync(payload: any) {
   try {
     console.log('LogoutStartAsync');
     

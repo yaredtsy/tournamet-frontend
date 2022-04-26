@@ -13,7 +13,7 @@ import {
   Tooltip,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { Field, Formik, Form, useFormik } from "formik";
+import { Field, Formik, Form } from "formik";
 import * as Yup from "yup";
 
 import useTypedSelector from "hooks/useTypedSelector";
