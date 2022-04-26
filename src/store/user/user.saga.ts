@@ -3,6 +3,7 @@ import {
   RecaptchaVerifier,
   signInWithPhoneNumber,
   UserCredential,
+  signOut,
 } from "firebase/auth";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { userAction } from "store/user/slice";
@@ -32,14 +33,22 @@ export function* LoginStart() {
   yield takeLatest(userAction.loginstart, LoginStartAsync);
 }
 
-export function* LogoutStartAsync(payload: string) {
+export function* LogoutStartAsync(payload: any) {
   try {
-    yield call(auth.signOut);
+    console.log('LogoutStartAsync');
+    
+    console.log(auth);
+    
+    yield call(signOut,auth);
     yield put(userAction.logoutSuccess())
-  } catch (error) {
+    // console.log(auth.name);
+    
+  } catch (error:any) {
+    console.log(error);
+    
     yield put(userAction.logoutFailed('something is wrong'))
   }
 }
 export function* LogoutStart() {
-  yield takeLatest(userAction.logoutStart, LoginStartAsync);
+  yield takeLatest(userAction.logoutStart, LogoutStartAsync);
 }

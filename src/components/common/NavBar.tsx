@@ -1,17 +1,25 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import {userAction} from 'store/user/slice'
+
 import {
   Navbar,
-  Nav,
   Container,
   NavbarBrand,
-  NavItem,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
 
+
 function NavBar() {
+const dispatch = useDispatch();
+
+  const logoutHandler = (e: React.MouseEvent<HTMLButtonElement>)=>{
+    e.stopPropagation();
+    dispatch(userAction.logoutStart(""))
+  }
   return (
     <Navbar className="navbar-dark bg-primary mr-auto ml-auto">
       <Container>
@@ -29,7 +37,7 @@ function NavBar() {
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem tag="a">Edit profile</DropdownItem>
-                <DropdownItem tag="a">Logout</DropdownItem>
+                <DropdownItem tag="button" onClick={logoutHandler}>Logout</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </div>
