@@ -14,7 +14,7 @@ function HomePage() {
   useEffect(() => {
     const tournaments = query(
       collection(db, "tournamentPRO"),
-      where("state", "!=", "OPENED")
+      where("state", "!=", "CLOSED")
     );
     
     
