@@ -1,16 +1,15 @@
 import { useEffect } from "react";
 
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomePage, LoginPage, OtpPage } from "page";
 import { auth } from "utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
 
 import { userAction } from "store/user/slice";
-import { PrivateRoutes, PublicRoutes } from "components/routes";
+import { ProtectedRoute, PublicRoutes } from "components/routes";
 
 import "bootstrap/dist/css/bootstrap.css";
-import {Router } from "@reach/router";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,28 +26,32 @@ function App() {
   }
   return (
     <BrowserRouter>
-      <Router>
-        <PublicRoutes
-          uri="/login"
+      <Routes>
+        <Route
           path="/login"
-         
-          user={user}
-          element={<LoginPage />}
+          element={
+            <PublicRoutes user={user} redirectTo="/">
+              <LoginPage />
+            </PublicRoutes>
+          }
         />
-        <PublicRoutes
+        <Route
           path="/otp-confirm"
-         
-          user={user}
-          element={<OtpPage />}
+          element={
+            <PublicRoutes user={user} redirectTo="/">
+              <OtpPage />
+            </PublicRoutes>
+          }
         />
-        <PrivateRoutes
-          uri="/"
+        <Route
           path="/"
-       
-          user={user}
-          element={<HomePage />}
+          element={
+            <ProtectedRoute user={user} redirectTo="/login">
+              <HomePage />
+            </ProtectedRoute>
+          }
         />
-      </Router>
+      </Routes>
     </BrowserRouter>
   );
 }
