@@ -1,3 +1,4 @@
-import NavBar from 'components/common/NavBar';
+import NavBar from "components/common/NavBar";
+import TournamentInfo from "components/common/TournamentInfo";
 
-export{NavBar}
+export { NavBar, TournamentInfo };

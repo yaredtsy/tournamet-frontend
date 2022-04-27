@@ -16,7 +16,7 @@ const KukuluTournamentTable:React.FC<KukuluTournamentTableProps>=({columns, data
     <thead className="thead-dark">
       {headerGroups.map((headerGroup) => (
         <tr {...headerGroup.getHeaderGroupProps()}>
-          <th className="col">#</th>
+        
           {headerGroup.headers.map((column) => {
             return (
               <th
@@ -38,7 +38,6 @@ const KukuluTournamentTable:React.FC<KukuluTournamentTableProps>=({columns, data
 
         return (
           <tr {...row.getRowProps()}>
-            <th scope="row">{index+1}</th>
             {row.cells.map((cell) => {
               return (
                 <td {...cell.getCellProps()}>{cell.render("Cell")}</td>

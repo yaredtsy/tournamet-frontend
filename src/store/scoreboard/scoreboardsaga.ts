@@ -7,6 +7,7 @@ import {
   where,
   query,
   DocumentData,
+  orderBy,
   CollectionReference,
   QueryConstraint,
   Query,
@@ -16,9 +17,11 @@ import {
 
 export function* getTournamentAsync() {
   try {
+    console.log("getTournamentAsync");
+
     const collections = collection(db, "tournamentPRO");
     // const collections:CollectionReference<DocumentData> = yield call(collection,db,'tournamentPRO')
-    const querys: QueryConstraint = where("state", "==", "OPENED");
+    const querys: QueryConstraint = where("state", "!=", "CLOSED");
     const tournament: Query = query(collections, querys);
 
     const documents: QuerySnapshot = yield call(getDocs, tournament);
@@ -31,25 +34,56 @@ export function* getTournamentAsync() {
         enteringFee: document.data().enteringFee,
         minPlayers: document.data().minPlayers,
         price: document.data().price,
+        id: document.id,
       };
 
       yield put(scoreboardAction.getTournamentSuccess(tournamentDoc));
     }
-  } catch (err:any) {
-    yield put(scoreboardAction.getTournamentFailed(err.message))
+  } catch (err: any) {
+    yield put(scoreboardAction.getTournamentFailed(err.message));
   }
 }
 export function* getTournamentStart() {
-  yield takeLatest(scoreboardAction.getPlayersStart, getTournamentAsync);
+  yield takeLatest(scoreboardAction.getTournamentStart, getTournamentAsync);
 }
 
-export function* getPlayersAsync(){
+export function* getPlayersAsync(action: { payload: TournamentType }) {
   try {
+    console.log("<-= getPlayersAsync -=>");
     
-  } catch (error:any) {
-    yield put(scoreboardAction.getPlayersFailed(error.message))
+    const collec = collection(
+      db,
+      "tournamentPRO",
+      action.payload.id,
+      "user"
+    );
+    console.log(collec);
+    
+    const orderd: QueryConstraint = orderBy("score", "desc");
+
+    const orderdQuery: Query = query(collec, orderd);
+
+    const players: QuerySnapshot = yield call(getDocs, orderdQuery);
+      console.log(players);
+      
+    let playersList: PlayersType[] = [];
+    if (!players.empty) {
+      players.forEach((player) => {
+        const playerData: PlayersType = {
+          name: player.data().name,
+          rank: player.data().rank,
+          score: player.data().score,
+        };
+        playersList.push(playerData);
+      });
+    }
+    yield put(scoreboardAction.getPlayersSuccess(playersList));
+  } catch (error: any) {
+    console.log(error);
+
+    yield put(scoreboardAction.getPlayersFailed(error.message));
   }
 }
-export function* getPlayersStart(){
-  yield takeLatest(scoreboardAction.getPlayersStart,getPlayersAsync)
+export function* getPlayersStart() {
+  yield takeLatest(scoreboardAction.getPlayersStart, getPlayersAsync);
 }

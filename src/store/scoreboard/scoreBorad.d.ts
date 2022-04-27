@@ -10,6 +10,7 @@ interface TournamentType{
     endesAt:number;
     state: string;
     price: PriceType[];
+    id: string;
 }
 
 interface PriceType{

@@ -24,9 +24,18 @@ export const scoreBoardSlice = createSlice({
       state.isLoading = true
       state.error = action.payload
     },
-    getPlayersStart: (state, action: PayloadAction<string>) => {},
-    getPlayersSuccess: (state, action: PayloadAction<string>) => {},
-    getPlayersFailed: (state, action: PayloadAction<string>) => {},
+    getPlayersStart: (state, action: PayloadAction<TournamentType>) => {
+      state.isLoading = true;
+    },
+    getPlayersSuccess: (state, action: PayloadAction<PlayersType[]>) => {
+      state.isLoading = false;
+      state.error = null
+      state.players = action.payload
+    },
+    getPlayersFailed: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload
+    },
   },
 });
 
