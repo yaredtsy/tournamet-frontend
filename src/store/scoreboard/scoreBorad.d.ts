@@ -12,6 +12,7 @@ interface TournamentType{
     state: string;
     price: PriceType[];
     id: string;
+    totalPlayers:number;
 }
 
 interface PriceType{

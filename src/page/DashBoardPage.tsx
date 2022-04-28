@@ -75,7 +75,7 @@ function DashBoardPage() {
                   )}
                 </CardTitle>
                 <CardBody>
-                  <TournamentInfo tournament={tournament} players={players} />
+                  <TournamentInfo tournament={tournament} />
                 </CardBody>
               </Card>
             </Col>

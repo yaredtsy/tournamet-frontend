@@ -21,11 +21,11 @@ function HomePage() {
   const navigate = useNavigate();
   const {
     tournament,
-    players,
+
     isLoading,
   }: {
     tournament: TournamentType | null;
-    players: PlayersType[] | null;
+
     isLoading: boolean;
   } = useTypedSelector((state) => state.scoreboard);
 
@@ -33,11 +33,6 @@ function HomePage() {
     if (!isLoading) dispatch(scoreboardAction.getTournamentStart(""));
   }, []);
 
-  useEffect(() => {
-    if (tournament) {
-      dispatch(scoreboardAction.getPlayersStart(tournament));
-    }
-  }, [tournament]);
   if (isLoading) {
     return <>loading</>;
   } else
@@ -59,7 +54,7 @@ function HomePage() {
                     </CardText>
                   </CardTitle>
                   <CardBody>
-                    <TournamentInfo players={players} tournament={tournament} />
+                    <TournamentInfo tournament={tournament} />
                   </CardBody>
                   <CardFooter>
                     <Button

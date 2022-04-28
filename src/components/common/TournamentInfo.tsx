@@ -3,12 +3,12 @@ import { Col, Row } from "reactstrap";
 
 interface TournamentInfoProps {
   tournament: TournamentType | null;
-  players: PlayersType[] | null;
+ 
 }
 
 const TournamentInfo: React.FC<TournamentInfoProps> = ({
   tournament,
-  players,
+  
 }) => {
   const [timeleft, setTimeLeft] = useState("");
   const [status,setStatus] = useState("")
@@ -29,9 +29,11 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
 
       switch (tournament.state) {
         case "OPEND":
-          setTimeLeft('n/A')
+          setTimeLeft('Waiting for players...')
+          setStatus('Waiting for players...')
           break;
         case "STARTED":
+          setStatus('Started')
           setTimeLeft(
             `${day} days ${hour % 24} hours ${minutes % 60} minutes ${second % 60}`
           );
@@ -46,7 +48,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
     <div>
       <Row>
         <Col className="col-6">Satus</Col>
-        <Col className="col-6">{tournament ? tournament.state : "n/A"}</Col>
+        <Col className="col-6">{tournament ? status : "n/A"}</Col>
 
         <Col className="col-6">Time remaining</Col>
         <Col className="col-6">{tournament ? timeleft : "n/A"}</Col>
@@ -61,7 +63,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
         <Col className="col-6">{tournament ? tournament.minPlayers : "n/A"}</Col>
 
         <Col className="col-6">Players joined</Col>
-        <Col className="col-6">{players ? players.length : "n/A"}</Col>
+        <Col className="col-6">{tournament ? tournament.totalPlayers : "n/A"}</Col>
       </Row>
     </div>
   );

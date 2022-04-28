@@ -35,6 +35,7 @@ export function* getTournamentAsync() {
         minPlayers: document.data().minPlayers,
         price: document.data().price,
         id: document.id,
+        totalPlayers: document.data().totalPlayers
       };
 
       yield put(scoreboardAction.getTournamentSuccess(tournamentDoc));
