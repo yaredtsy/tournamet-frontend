@@ -68,7 +68,12 @@ function DashBoardPage() {
           <Row className="align-items-center mb-4">
             <Col className="col-6 mx-auto">
               <Card>
-                <CardTitle className="m-3">Tournament Info</CardTitle>
+                <CardTitle className="m-3">
+                  Tournament Info{" "}
+                  {!tournament && (
+                    <span className="h5 p-3">No Active Tournament</span>
+                  )}
+                </CardTitle>
                 <CardBody>
                   <TournamentInfo tournament={tournament} players={players} />
                 </CardBody>

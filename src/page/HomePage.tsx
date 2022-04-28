@@ -52,7 +52,9 @@ function HomePage() {
                     <CardText>
                       <span className="align-items-center">
                         Tournament{" "}
-                        <span className="h5 p-3">No Active Tournament</span>
+                        {!tournament && (
+                          <span className="h5 p-3">No Active Tournament</span>
+                        )}
                       </span>
                     </CardText>
                   </CardTitle>
@@ -64,7 +66,7 @@ function HomePage() {
                       className="w-100"
                       color="primary"
                       onClick={() => {
-                        navigate('/login',{replace:true})
+                        navigate("/login", { replace: true });
                       }}
                     >
                       join tournament
