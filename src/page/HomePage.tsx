@@ -1,24 +1,33 @@
-import React, { useEffect, useState } from "react";
-
-import { db } from "utils/firebase";
-import { collection, getDocs, where, query } from "firebase/firestore/lite";
-
-import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
-import { NavBar, TournamentInfo } from "components/common";
-import KukuluTournamentTable from "components/table/KukuluTournamentTable";
+import { TournamentInfo } from "components/common";
 import useTypedSelector from "hooks/useTypedSelector";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardText,
+  CardTitle,
+  Col,
+  Container,
+  Row,
+} from "reactstrap";
 import { scoreboardAction } from "store/scoreboard/slice";
-import RankCorrector from "components/common/RankCorrector";
 
 function HomePage() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const {
     tournament,
     players,
-  }: { tournament: TournamentType | null; players: PlayersType[] | null } =
-    useTypedSelector((state) => state.scoreboard);
+    isLoading,
+  }: {
+    tournament: TournamentType | null;
+    players: PlayersType[] | null;
+    isLoading: boolean;
+  } = useTypedSelector((state) => state.scoreboard);
 
   useEffect(() => {
     dispatch(scoreboardAction.getTournamentStart(""));
@@ -29,66 +38,45 @@ function HomePage() {
       dispatch(scoreboardAction.getPlayersStart(tournament));
     }
   }, [tournament]);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        // Second group - Details
-        Header: "Rank",
-        // Second group columns
-        accessor: "rank" as const,
-      },
-      {
-        // first group - TV Show
-        Header: "Name",
-        // First group columns
-        accessor: "name" as const,
-      },
-      {
-        // Second group - Details
-        Header: "Score",
-        // Second group columns
-        accessor: "score" as const,
-      },
-      {
-        Header: "Reward",
-        accessor: "reward" as const,
-      },
-    ],
-    []
-  );
-  if (tournament && players)
+  if (isLoading) {
+    return <>loading</>;
+  } else
     return (
       <>
-        <NavBar />
-        <Container className="mt-5">
-          <Row className="align-items-center mb-4">
-            <Col className="col-6 mx-auto">
-              <Card>
-                <CardTitle className="m-3">
-                  Tournament Info
-                </CardTitle>
-                <CardBody>
-                  <TournamentInfo tournament={tournament} players={players} />
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-
-          <KukuluTournamentTable columns={columns} data={players} />
-        </Container>
-      </>
-    );
-  else {
-    return (
-      <>
-        <NavBar />
         <div>
-          <h1>no tournament found</h1>
+          <Container>
+            <Row className="align-items-center vh-100">
+              <Col className="col-6 mx-auto my-auto">
+                <Card>
+                  <CardTitle className="m-3">
+                    <CardText>
+                      <span className="align-items-center">
+                        Tournament{" "}
+                        <span className="h5 p-3">No Active Tournament</span>
+                      </span>
+                    </CardText>
+                  </CardTitle>
+                  <CardBody>
+                    <TournamentInfo players={players} tournament={tournament} />
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      className="w-100"
+                      color="primary"
+                      onClick={() => {
+                        navigate('/login',{replace:true})
+                      }}
+                    >
+                      join tournament
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </>
     );
-  }
 }
 
 export default HomePage;

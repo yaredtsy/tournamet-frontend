@@ -25,7 +25,7 @@ export function* getTournamentAsync() {
     const tournament: Query = query(collections, querys);
 
     const documents: QuerySnapshot = yield call(getDocs, tournament);
-
+   
     if (!documents.empty) {
       const document: QueryDocumentSnapshot<DocumentData> = documents.docs[0];
       const tournamentDoc: TournamentType = {
@@ -39,6 +39,7 @@ export function* getTournamentAsync() {
 
       yield put(scoreboardAction.getTournamentSuccess(tournamentDoc));
     }
+    yield put(scoreboardAction.getTournamentSuccess(null));
   } catch (err: any) {
     yield put(scoreboardAction.getTournamentFailed(err.message));
   }
@@ -64,7 +65,7 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
     let playersList: PlayersType[] = [];
 
     if (!players.empty) {
-      
+
       players.docs.forEach((player, index) => {
         let reward: string = "0 birr";
         if (index < action.payload.price.length) {

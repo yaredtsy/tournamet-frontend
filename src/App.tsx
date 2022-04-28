@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { HomePage, LoginPage, OtpPage } from "page";
+import { HomePage, LoginPage, OtpPage,DashBoardPage } from "page";
 import { auth } from "utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
@@ -27,10 +27,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
         <Route
           path="/login"
           element={
-            <PublicRoutes user={user} redirectTo="/">
+            <PublicRoutes user={user} redirectTo="/dashboard">
               <LoginPage />
             </PublicRoutes>
           }
@@ -38,17 +39,23 @@ function App() {
         <Route
           path="/otp-confirm"
           element={
-            <PublicRoutes user={user} redirectTo="/">
+            <PublicRoutes user={user} redirectTo="/dashboard">
               <OtpPage />
             </PublicRoutes>
           }
         />
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <ProtectedRoute user={user} redirectTo="/login">
-              <HomePage />
+              <DashBoardPage />
             </ProtectedRoute>
+          }
+        />
+        <Route 
+          path="/"
+          element={
+            <HomePage />
           }
         />
       </Routes>
