@@ -39,6 +39,7 @@ export function* getTournamentAsync() {
 
       yield put(scoreboardAction.getTournamentSuccess(tournamentDoc));
     }
+    else
     yield put(scoreboardAction.getTournamentSuccess(null));
   } catch (err: any) {
     yield put(scoreboardAction.getTournamentFailed(err.message));

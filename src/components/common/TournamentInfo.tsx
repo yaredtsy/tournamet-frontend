@@ -11,6 +11,8 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
   players,
 }) => {
   const [timeleft, setTimeLeft] = useState("");
+  const [status,setStatus] = useState("")
+
   const [pricepool, setPricepool] = useState("650 Birr");
 
   useEffect(() => {
@@ -23,9 +25,20 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
       let hour = Math.floor(minutes / 60);
       let day = Math.floor(hour / 24);
 
-      setTimeLeft(
-        `${day} days ${hour % 24} hours ${minutes % 60} minutes ${second % 60}`
-      );
+    
+
+      switch (tournament.state) {
+        case "OPEND":
+          setTimeLeft('n/A')
+          break;
+        case "STARTED":
+          setTimeLeft(
+            `${day} days ${hour % 24} hours ${minutes % 60} minutes ${second % 60}`
+          );
+          break;
+        default:
+          break;
+      }
     }
   }, [tournament]);
 

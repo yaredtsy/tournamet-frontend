@@ -22,7 +22,7 @@ function DashBoardPage() {
   } = useTypedSelector((state) => state.scoreboard);
 
   useEffect(() => {
-    dispatch(scoreboardAction.getTournamentStart(""));
+    if (!isLoading) dispatch(scoreboardAction.getTournamentStart(""));
   }, []);
 
   useEffect(() => {
