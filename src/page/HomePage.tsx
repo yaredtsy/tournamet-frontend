@@ -17,8 +17,10 @@ import {
 import { scoreboardAction } from "store/scoreboard/slice";
 
 function HomePage() {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const {
     tournament,
 
@@ -64,7 +66,7 @@ function HomePage() {
                         navigate("/login", { replace: true });
                       }}
                     >
-                      join tournament
+                      Join Tournament
                     </Button>
                   </CardFooter>
                 </Card>

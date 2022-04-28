@@ -1,17 +1,14 @@
+import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 
 interface TournamentInfoProps {
   tournament: TournamentType | null;
- 
 }
 
-const TournamentInfo: React.FC<TournamentInfoProps> = ({
-  tournament,
-  
-}) => {
+const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
   const [timeleft, setTimeLeft] = useState("");
-  const [status,setStatus] = useState("")
+  const [status, setStatus] = useState("");
 
   const [pricepool, setPricepool] = useState("650 Birr");
 
@@ -25,17 +22,17 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
       let hour = Math.floor(minutes / 60);
       let day = Math.floor(hour / 24);
 
-    
-
       switch (tournament.state) {
         case "OPEND":
-          setTimeLeft('Waiting for players...')
-          setStatus('Waiting for players...')
+          setTimeLeft("Waiting for players...");
+          setStatus("Waiting for players...");
           break;
         case "STARTED":
-          setStatus('Started')
+          setStatus("Started");
           setTimeLeft(
-            `${day} days ${hour % 24} hours ${minutes % 60} minutes ${second % 60}`
+            `${day} days ${hour % 24} hours ${minutes % 60} minutes ${
+              second % 60
+            }`
           );
           break;
         default:
@@ -47,7 +44,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
   return (
     <div>
       <Row>
-        <Col className="col-6">Satus</Col>
+        <Col className="col-6 ">Satus</Col>
         <Col className="col-6">{tournament ? status : "n/A"}</Col>
 
         <Col className="col-6">Time remaining</Col>
@@ -56,14 +53,29 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({
         <Col className="col-6">Price Pool</Col>
         <Col className="col-6">{tournament ? pricepool : "n/A"}</Col>
 
-        <Col className="col-6">Game</Col>
-        <Col className="col-6">{tournament?'kukulu':'n/A'}</Col>
+        <Col className="col-6"><span className="my-auto">Game</span></Col>
+        <Col className="col-6">
+          {tournament ? "Kukulu" : "n/A"}{" "}
+          <Button
+            onClick={(e) => {
+              window.location.href = "https://www.kinet.store/kukuluet/";
+            }}
+            className="btn-sm ml-3"
+            color="primary"
+          >
+            Download Game
+          </Button>
+        </Col>
 
         <Col className="col-6">Min players needed to start</Col>
-        <Col className="col-6">{tournament ? tournament.minPlayers : "n/A"}</Col>
+        <Col className="col-6">
+          {tournament ? tournament.minPlayers : "n/A"}
+        </Col>
 
         <Col className="col-6">Players joined</Col>
-        <Col className="col-6">{tournament ? tournament.totalPlayers : "n/A"}</Col>
+        <Col className="col-6">
+          {tournament ? tournament.totalPlayers : "n/A"}
+        </Col>
       </Row>
     </div>
   );
