@@ -2,6 +2,7 @@ interface PlayersType {
     name:string;
     score:number;
     rank:number;
+    reward:string;
 }
 
 interface TournamentType{

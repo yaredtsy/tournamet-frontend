@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { db } from "utils/firebase";
 import { collection, getDocs, where, query } from "firebase/firestore/lite";
 
-import { Col, Container, Row } from "reactstrap";
+import { Card, CardBody, CardTitle, Col, Container, Row } from "reactstrap";
 import { NavBar, TournamentInfo } from "components/common";
 import KukuluTournamentTable from "components/table/KukuluTournamentTable";
 import useTypedSelector from "hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
 import { scoreboardAction } from "store/scoreboard/slice";
+import RankCorrector from "components/common/RankCorrector";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -33,21 +34,25 @@ function HomePage() {
     () => [
       {
         // Second group - Details
-        Header: "rank",
+        Header: "Rank",
         // Second group columns
         accessor: "rank" as const,
       },
       {
         // first group - TV Show
-        Header: "name",
+        Header: "Name",
         // First group columns
         accessor: "name" as const,
       },
       {
         // Second group - Details
-        Header: "score",
+        Header: "Score",
         // Second group columns
         accessor: "score" as const,
+      },
+      {
+        Header: "Reward",
+        accessor: "reward" as const,
       },
     ],
     []
@@ -57,9 +62,16 @@ function HomePage() {
       <>
         <NavBar />
         <Container className="mt-5">
-          <Row className="align-items-center ">
-            <Col className="col-4 mx-auto">
-              <TournamentInfo tournament={tournament} players={players} />
+          <Row className="align-items-center mb-4">
+            <Col className="col-6 mx-auto">
+              <Card>
+                <CardTitle className="m-3">
+                  Tournament Info
+                </CardTitle>
+                <CardBody>
+                  <TournamentInfo tournament={tournament} players={players} />
+                </CardBody>
+              </Card>
             </Col>
           </Row>
 

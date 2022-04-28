@@ -50,32 +50,36 @@ export function* getTournamentStart() {
 export function* getPlayersAsync(action: { payload: TournamentType }) {
   try {
     console.log("<-= getPlayersAsync -=>");
-    
-    const collec = collection(
-      db,
-      "tournamentPRO",
-      action.payload.id,
-      "user"
-    );
+
+    const collec = collection(db, "tournamentPRO", action.payload.id, "user");
     console.log(collec);
-    
+
     const orderd: QueryConstraint = orderBy("score", "desc");
 
     const orderdQuery: Query = query(collec, orderd);
 
     const players: QuerySnapshot = yield call(getDocs, orderdQuery);
-      console.log(players);
-      
+    console.log(players);
+
     let playersList: PlayersType[] = [];
+
     if (!players.empty) {
-      players.forEach((player) => {
+      
+      players.docs.forEach((player, index) => {
+        let reward: string = "0 birr";
+        if (index < action.payload.price.length) {
+          reward = action.payload.price[index].price;
+        }
+
         const playerData: PlayersType = {
           name: player.data().name,
           rank: player.data().rank,
           score: player.data().score,
+          reward: reward,
         };
         playersList.push(playerData);
       });
+
     }
     yield put(scoreboardAction.getPlayersSuccess(playersList));
   } catch (error: any) {

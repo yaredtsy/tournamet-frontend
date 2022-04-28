@@ -29,22 +29,22 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament,players }) =
   return (
     <div>
       <Row>
-        <Col className="col-6">the game has been</Col>
+        <Col className="col-6">Satus</Col>
         <Col className="col-6">{tournament.state}</Col>
 
-        <Col className="col-6">time left</Col>
+        <Col className="col-6">Time remaining</Col>
         <Col className="col-6">{timeleft}</Col>
 
-        <Col className="col-6">price pool</Col>
+        <Col className="col-6">Price Pool</Col>
         <Col className="col-6">{pricepool}</Col>
 
         <Col className="col-6">Game</Col>
         <Col className="col-6">kukulu</Col>
 
-        <Col className="col-6">min players needed to start</Col>
+        <Col className="col-6">Min players needed to start</Col>
         <Col className="col-6">{tournament.minPlayers}</Col>
 
-        <Col className="col-6">Total number of people joined</Col>
+        <Col className="col-6">Players joined</Col>
         <Col className="col-6">{players.length}</Col>
       </Row>
     </div>
