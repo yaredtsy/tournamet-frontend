@@ -66,7 +66,7 @@ function DashBoardPage() {
         <NavBar />
         <Container className="mt-5">
           <Row className="align-items-center mb-4">
-            <Col className="col-6 mx-auto">
+            <Col className="col-md-6 col-sm-10 mx-auto">
               <Card>
                 <CardTitle className="m-3">
                   Tournament Info{" "}

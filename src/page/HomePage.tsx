@@ -43,7 +43,7 @@ function HomePage() {
         <div>
           <Container>
             <Row className="align-items-center vh-100">
-              <Col className="col-6 mx-auto my-auto">
+              <Col className="col-md-6 col-sm-10 mx-auto my-auto">
                 <Card>
                   <CardTitle className="m-3">
                     <CardText>
