@@ -19,13 +19,13 @@ export function* getTournamentAsync() {
   try {
     console.log("getTournamentAsync");
 
-    const collections = collection(db, "tournamentPRO");
+    const collections = collection(db, "tournamentTEST");
     // const collections:CollectionReference<DocumentData> = yield call(collection,db,'tournamentPRO')
     const querys: QueryConstraint = where("state", "!=", "CLOSED");
     const tournament: Query = query(collections, querys);
 
     const documents: QuerySnapshot = yield call(getDocs, tournament);
-   
+
     if (!documents.empty) {
       const document: QueryDocumentSnapshot<DocumentData> = documents.docs[0];
       const tournamentDoc: TournamentType = {
@@ -35,13 +35,11 @@ export function* getTournamentAsync() {
         minPlayers: document.data().minPlayers,
         price: document.data().price,
         id: document.id,
-        totalPlayers: document.data().totalPlayers
+        totalPlayers: document.data().totalPlayers,
       };
 
       yield put(scoreboardAction.getTournamentSuccess(tournamentDoc));
-    }
-    else
-    yield put(scoreboardAction.getTournamentSuccess(null));
+    } else yield put(scoreboardAction.getTournamentSuccess(null));
   } catch (err: any) {
     yield put(scoreboardAction.getTournamentFailed(err.message));
   }
@@ -54,7 +52,7 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
   try {
     console.log("<-= getPlayersAsync -=>");
 
-    const collec = collection(db, "tournamentPRO", action.payload.id, "user");
+    const collec = collection(db, "tournamentTEST", action.payload.id, "user");
     console.log(collec);
 
     const orderd: QueryConstraint = orderBy("score", "desc");
@@ -67,7 +65,6 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
     let playersList: PlayersType[] = [];
 
     if (!players.empty) {
-
       players.docs.forEach((player, index) => {
         let reward: string = "0 birr";
         if (index < action.payload.price.length) {
@@ -82,7 +79,6 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
         };
         playersList.push(playerData);
       });
-
     }
     yield put(scoreboardAction.getPlayersSuccess(playersList));
   } catch (error: any) {
