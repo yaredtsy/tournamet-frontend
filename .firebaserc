@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "airtime-payment"
+  },
+  "targets": {
+    "airtime-payment": {
+      "hosting": {
+        "kukulu-tournament": [
+          "kukulu-tournament"
+        ]
+      }
+    }
+  }
+}
