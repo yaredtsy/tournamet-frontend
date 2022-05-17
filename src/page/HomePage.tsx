@@ -17,7 +17,6 @@ import {
 import { scoreboardAction } from "store/scoreboard/slice";
 
 function HomePage() {
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,8 +43,8 @@ function HomePage() {
           <Container>
             <Row className="align-items-center vh-100">
               <Col className="col-md-6 col-sm-10 mx-auto my-auto">
-                <Card>
-                  <CardTitle className="m-3">
+                <Card className="shadow-sm rounded border-0">
+                  <CardTitle className="m-3 fw-bolder fs-5">
                     <CardText>
                       <span className="align-items-center">
                         Tournament{" "}
@@ -60,7 +59,7 @@ function HomePage() {
                   </CardBody>
                   <CardFooter>
                     <Button
-                      className="w-100"
+                      className="w-100 shadow-sm"
                       color="primary"
                       onClick={() => {
                         navigate("/login", { replace: true });

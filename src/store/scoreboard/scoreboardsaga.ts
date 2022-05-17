@@ -76,6 +76,7 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
           rank: player.data().rank,
           score: player.data().score,
           reward: reward,
+          id: player.id,
         };
         playersList.push(playerData);
       });

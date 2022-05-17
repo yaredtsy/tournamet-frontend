@@ -26,18 +26,17 @@ import { ConfirmationResult } from "firebase/auth";
 function LoginPage() {
   const dispatch = useDispatch();
   console.log("LoginPage");
-  
+
   const {
     firebaseConfirmation,
     isLoading,
-  }: { firebaseConfirmation: ConfirmationResult|null; isLoading: boolean } = useTypedSelector(
-    (state) => state.user
-  );
+  }: { firebaseConfirmation: ConfirmationResult | null; isLoading: boolean } =
+    useTypedSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (firebaseConfirmation) {
-      navigate("/otp-confirm",{replace:true});
+      navigate("/otp-confirm", { replace: true });
     }
   }, [firebaseConfirmation]);
   const [istoggle, setToggle] = useState(false);
@@ -61,9 +60,9 @@ function LoginPage() {
     <Container>
       <Row className="align-items-center vh-100">
         <Col className="col-6 mx-auto my-auto">
-          <Card>
+          <Card className="shadow-sm rounded border-0">
             <CardTitle className="m-3">
-              <CardText>Login</CardText>
+              <CardText className="fw-bolder fs-5">Login</CardText>
             </CardTitle>
             <CardBody>
               <Formik

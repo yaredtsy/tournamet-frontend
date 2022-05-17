@@ -51,21 +51,15 @@ function OtpConfirmation() {
     { otpCode }: { otpCode: string },
     { setErrors }: { setErrors: any }
   ) => {
-    console.log("handleSubmit");
-
-    console.log(setErrors);
     firebaseConfirmation
       ?.confirm(otpCode)
       .then((user: UserCredential | null) => {
         if (user) {
-          console.log(user.user);
           dispatch(userAction.otpConfirmSuccess(user.user));
-          navigate("/");
+          navigate("/dashboard");
         }
       })
       .catch((error) => {
-        console.log("error");
-
         setErrors({ otpCode: "please enter the correct otp code" });
         // set
       });
@@ -78,9 +72,9 @@ function OtpConfirmation() {
     <Container>
       <Row className="align-items-center vh-100">
         <Col className="col-6 mx-auto my-auto">
-          <Card>
+          <Card className="shadow-sm rounded border-0">
             <CardTitle className="m-3">
-              <CardText>Otp code</CardText>
+              <CardText className="fw-bolder fs-5">Otp code</CardText>
             </CardTitle>
             <CardBody>
               <Formik

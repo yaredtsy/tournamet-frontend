@@ -44,35 +44,43 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
   return (
     <div>
       <Row>
-        <Col className="col-6 ">Satus</Col>
+        <Col className="col-6 text-uppercase fw-bolder gy-2">Satus</Col>
         <Col className="col-6">{tournament ? status : "n/A"}</Col>
 
-        <Col className="col-6">Time remaining</Col>
+        <Col className="col-6 text-uppercase fw-bolder gy-2">
+          Time remaining
+        </Col>
         <Col className="col-6">{tournament ? timeleft : "n/A"}</Col>
 
-        <Col className="col-6">Price Pool</Col>
+        <Col className="col-6 text-uppercase fw-bolder gy-2">Price Pool</Col>
         <Col className="col-6">{tournament ? pricepool : "n/A"}</Col>
 
-        <Col className="col-6"><span className="my-auto">Game</span></Col>
-        <Col className="col-6">
+        <Col className="col-6 text-uppercase d-flex align-self-center fw-bolder gy-2">
+          <span className="my-auto">Game</span>
+        </Col>
+        <Col className="col-6 my-3 ">
           {tournament ? "Kukulu" : "n/A"}{" "}
           <Button
             onClick={(e) => {
               window.location.href = "https://www.kinet.store/kukuluet/";
             }}
-            className="btn-sm ml-3"
+            className="btn-sm ms-2 shadow-sm"
             color="primary"
           >
             Download Game
           </Button>
         </Col>
 
-        <Col className="col-6">Min players needed to start</Col>
+        <Col className="col-6 text-uppercase fw-bolder gy-2">
+          Min players needed to start
+        </Col>
         <Col className="col-6">
           {tournament ? tournament.minPlayers : "n/A"}
         </Col>
 
-        <Col className="col-6">Players joined</Col>
+        <Col className="col-6 text-uppercase fw-bolder gy-2">
+          Players joined
+        </Col>
         <Col className="col-6">
           {tournament ? tournament.totalPlayers : "n/A"}
         </Col>
