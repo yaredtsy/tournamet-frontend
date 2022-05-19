@@ -4,6 +4,9 @@ interface PlayersType {
   rank: number;
   reward: string;
   id: string;
+  phoneNumber: string;
+  createdAt: Timestamp;
+  token: any | null;
 }
 
 interface TournamentType {

@@ -59,15 +59,15 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           <span className="my-auto">Game</span>
         </Col>
         <Col className="col-6 my-3 ">
-          {tournament ? "Kukulu" : "n/A"}{" "}
           <Button
             onClick={(e) => {
               window.location.href = "https://www.kinet.store/kukuluet/";
             }}
             className="btn-sm ms-2 shadow-sm"
             color="primary"
+            size="lg"
           >
-            Download Game
+            {tournament ? "Kukulu" : "n/A"} Download Game
           </Button>
         </Col>
 

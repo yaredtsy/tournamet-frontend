@@ -52,6 +52,9 @@ export const userSlice = createSlice({
     logoutFailed: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
     },
+    userUpdated: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
   },
 });
 

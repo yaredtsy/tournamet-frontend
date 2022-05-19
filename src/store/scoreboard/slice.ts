@@ -13,28 +13,59 @@ export const scoreBoardSlice = createSlice({
   initialState,
   reducers: {
     getTournamentStart: (state, action: PayloadAction<string>) => {
-      state.isLoading = true
+      state.isLoading = true;
     },
-    getTournamentSuccess: (state, action: PayloadAction<TournamentType | null>) => {
-      state.tournament = action.payload
+
+    getTournamentSuccess: (
+      state,
+      action: PayloadAction<TournamentType | null>
+    ) => {
+      state.tournament = action.payload;
       state.isLoading = false;
-      state.error = null
+      state.error = null;
     },
+
     getTournamentFailed: (state, action: PayloadAction<string>) => {
-      state.isLoading = true
-      state.error = action.payload
+      state.isLoading = true;
+      state.error = action.payload;
     },
+
     getPlayersStart: (state, action: PayloadAction<TournamentType>) => {
       state.isLoading = true;
     },
+
     getPlayersSuccess: (state, action: PayloadAction<PlayersType[]>) => {
       state.isLoading = false;
-      state.error = null
-      state.players = action.payload
+      state.error = null;
+      state.players = action.payload;
     },
+
     getPlayersFailed: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.error = action.payload
+      state.error = action.payload;
+    },
+
+    joinTournamentStart: (
+      state,
+      action: PayloadAction<{ player: PlayersType; tournament: TournamentType }>
+    ) => {
+      state.isLoading = true;
+    },
+
+    joinTournamentSuccess: (state, action: PayloadAction<PlayersType>) => {
+      state.isLoading = false;
+      state.players?.push(action.payload);
+    },
+
+    joinTournamentFailed: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    updatePlayer: (state, action: PayloadAction<PlayersType>) => {
+      const index: number | undefined = state.players?.findIndex(
+        (player) => player.id === action.payload.id
+      );
+      if (state.players != null && index) state.players[index] = action.payload;
     },
   },
 });

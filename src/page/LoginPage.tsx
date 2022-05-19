@@ -25,7 +25,6 @@ import { ConfirmationResult } from "firebase/auth";
 
 function LoginPage() {
   const dispatch = useDispatch();
-  console.log("LoginPage");
 
   const {
     firebaseConfirmation,

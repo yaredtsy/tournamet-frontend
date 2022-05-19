@@ -1,6 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { scoreboardAction } from "store/scoreboard/slice";
 import { db } from "utils/firebase";
+import axios from "axios";
 import {
   collection,
   getDocs,
@@ -13,6 +14,9 @@ import {
   Query,
   QuerySnapshot,
   QueryDocumentSnapshot,
+  Timestamp,
+  setDoc,
+  doc,
 } from "firebase/firestore/lite";
 
 export function* getTournamentAsync() {
@@ -50,10 +54,7 @@ export function* getTournamentStart() {
 
 export function* getPlayersAsync(action: { payload: TournamentType }) {
   try {
-    console.log("<-= getPlayersAsync -=>");
-
     const collec = collection(db, "tournamentTEST", action.payload.id, "user");
-    console.log(collec);
 
     const orderd: QueryConstraint = orderBy("score", "desc");
 
@@ -77,17 +78,56 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
           score: player.data().score,
           reward: reward,
           id: player.id,
+          createdAt: player.data().createdAt,
+          phoneNumber: player.data().phoneNumber,
+          token: player.data().token,
         };
+
         playersList.push(playerData);
       });
     }
     yield put(scoreboardAction.getPlayersSuccess(playersList));
   } catch (error: any) {
-    console.log(error);
-
     yield put(scoreboardAction.getPlayersFailed(error.message));
   }
 }
+
 export function* getPlayersStart() {
   yield takeLatest(scoreboardAction.getPlayersStart, getPlayersAsync);
+}
+
+export function* joinTournamenAsync(action: {
+  payload: { player: PlayersType; tournament: TournamentType };
+}) {
+  try {
+    const collec = doc(
+      db,
+      "tournamentTEST",
+      action.payload.tournament.id,
+      "user",
+      action.payload.player.id
+    );
+
+    setDoc(collec, {
+      ...action.payload.player,
+    });
+
+    yield put(scoreboardAction.joinTournamentSuccess(action.payload.player));
+    const form = {
+      tournamentDbname: "tournamentTEST",
+      tournamentId: action.payload.tournament.id,
+    };
+    yield call(
+      axios.post,
+      "https://us-central1-airtime-payment.cloudfunctions.net/payment/tournamentJoined",
+      form
+    );
+  } catch (error: any) {
+    if (error.message)
+      yield put(scoreboardAction.joinTournamentFailed(error.message));
+  }
+}
+
+export function* joinTournamentStart() {
+  yield takeLatest(scoreboardAction.joinTournamentStart, joinTournamenAsync);
 }
