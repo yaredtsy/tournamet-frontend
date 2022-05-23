@@ -7,6 +7,7 @@ import useTypedSelector from "hooks/useTypedSelector";
 import { useDispatch } from "react-redux";
 import { scoreboardAction } from "store/scoreboard/slice";
 import Userdata from "components/homepage/userdata.component";
+import CustomContainer from "components/Layouts/container.component";
 
 function DashBoardPage() {
   const dispatch = useDispatch();
@@ -62,8 +63,7 @@ function DashBoardPage() {
   if (isLoading) return <div>loading...</div>;
   else
     return (
-      <>
-        <NavBar />
+      <CustomContainer>
         <Container className="mt-5">
           <Row className="align-items-center mb-4 d-flex">
             <Col className="col-md-6 col-sm-10 mx-auto col-10">
@@ -88,7 +88,7 @@ function DashBoardPage() {
             <KukuluTournamentTable columns={columns} data={players} />
           )}
         </Container>
-      </>
+      </CustomContainer>
     );
 }
 

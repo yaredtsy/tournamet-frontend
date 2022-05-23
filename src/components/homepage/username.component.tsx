@@ -14,6 +14,7 @@ import useTypedSelector from "hooks/useTypedSelector";
 import { User } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "firebase/auth";
+import * as Yup from "yup";
 
 import { scoreboardAction } from "store/scoreboard/slice";
 interface JoinModalProps {
@@ -30,17 +31,27 @@ const JoinModal: React.FC<JoinModalProps> = ({ show, onClosed, username }) => {
 
   const {
     tournament,
+    players,
     isLoading,
   }: {
     tournament: TournamentType | null;
     isLoading: boolean;
+    players: PlayersType[] | null;
   } = useTypedSelector((state) => state.scoreboard);
+
+  const validateScheme = Yup.object({
+    username: Yup.string().required("username cant be empty."),
+  });
 
   const formik = useFormik({
     initialValues: {
       username: username,
     },
-    onSubmit: (values) => {
+    validationSchema: validateScheme,
+    onSubmit: (
+      values: { username: any },
+      { setErrors }: { setErrors: any }
+    ) => {
       const player: PlayersType = {
         createdAt: Timestamp.now(),
         id: user?.uid != null ? user.uid : "",
@@ -52,12 +63,21 @@ const JoinModal: React.FC<JoinModalProps> = ({ show, onClosed, username }) => {
         score: 0,
         token: "",
       };
-
-      if (user) updateProfile(user, { displayName: values.username });
-      if (tournament)
-        dispatch(scoreboardAction.joinTournamentStart({ player, tournament }));
-
-      onClosed();
+      if (players) {
+        const isUnique = players.every(
+          (player) => player.name != values.username
+        );
+        if (isUnique) {
+          if (user) updateProfile(user, { displayName: values.username });
+          if (tournament)
+            dispatch(
+              scoreboardAction.joinTournamentStart({ player, tournament })
+            );
+        } else {
+          setErrors({ username: "username is alredy taken." });
+        }
+        onClosed();
+      }
     },
   });
 
@@ -81,6 +101,11 @@ const JoinModal: React.FC<JoinModalProps> = ({ show, onClosed, username }) => {
               onChange={formik.handleChange}
               value={formik.values.username}
             />
+            {formik.errors.username && formik.touched.username && (
+              <small id="username" className="form-text text-muted text-error">
+                {formik.errors.username.toString()}
+              </small>
+            )}
           </FormGroup>
           <Button type="submit" color="primary">
             join

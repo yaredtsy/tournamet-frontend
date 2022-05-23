@@ -48,9 +48,6 @@ function LoginPage() {
   });
 
   const handleSubmit = ({ phoneNumber }: { phoneNumber: string }) => {
-    console.log("handleSubmit");
-
-    console.log(phoneNumber);
     dispatch(userAction.loginstart(phoneNumber));
   };
   const phoneNumber: string = "";

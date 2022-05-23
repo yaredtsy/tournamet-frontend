@@ -1,4 +1,5 @@
 import { TournamentInfo } from "components/common";
+import CustomContainer from "components/Layouts/container.component";
 import useTypedSelector from "hooks/useTypedSelector";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -38,42 +39,40 @@ function HomePage() {
     return <>loading</>;
   } else
     return (
-      <>
-        <div>
-          <Container>
-            <Row className="align-items-center vh-100">
-              <Col className="col-md-6 col-sm-10 mx-auto my-auto">
-                <Card className="shadow-sm rounded border-0">
-                  <CardTitle className="m-3 fw-bolder fs-5">
-                    <CardText>
-                      <span className="align-items-center">
-                        Tournament{" "}
-                        {!tournament && (
-                          <span className="h5 p-3">No Active Tournament</span>
-                        )}
-                      </span>
-                    </CardText>
-                  </CardTitle>
-                  <CardBody>
-                    <TournamentInfo tournament={tournament} />
-                  </CardBody>
-                  <CardFooter>
-                    <Button
-                      className="w-100 shadow-sm"
-                      color="primary"
-                      onClick={() => {
-                        navigate("/login", { replace: true });
-                      }}
-                    >
-                      Join Tournament
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      </>
+      <CustomContainer className="kukulu-background">
+        <Container>
+          <Row className="align-items-center vh-100">
+            <Col className="col-md-6 col-sm-10 mx-auto my-auto">
+              <Card className="shadow-sm rounded border-0">
+                <CardTitle className="m-3 fw-bolder fs-5">
+                  <CardText>
+                    <span className="align-items-center">
+                      Tournament{" "}
+                      {!tournament && (
+                        <span className="h5 p-3">No Active Tournament</span>
+                      )}
+                    </span>
+                  </CardText>
+                </CardTitle>
+                <CardBody>
+                  <TournamentInfo tournament={tournament} />
+                </CardBody>
+                <CardFooter>
+                  <Button
+                    className="w-100 shadow-sm"
+                    color="primary"
+                    onClick={() => {
+                      navigate("/login", { replace: true });
+                    }}
+                  >
+                    Join Tournament
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </CustomContainer>
     );
 }
 

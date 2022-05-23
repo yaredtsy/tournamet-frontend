@@ -1,6 +1,5 @@
-
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 0.8rem;
   font-weight: 400;
   color: black;
@@ -23,17 +22,85 @@ body {
   }
 }
 
-
 #root {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
 
-.text-error{
+.text-error {
   color: red !important;
 }
 
-.select-cusror{
+.select-cusror {
   cursor: pointer;
+}
+
+.kukulu-background {
+  background: url("/assets/img/kukulu.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.nav-bar {
+  background-color: rgba(0, 0, 0, 0.473);
+  .anmation {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    background-color: #1abc9c;
+
+    z-index: 0;
+    border-radius: 8px;
+    width: 120px;
+  }
+  .nav-collapse {
+    position: relative;
+  }
+  .navbar_item {
+    color: white;
+    text-decoration: none;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    line-height: 50px;
+
+    z-index: 1;
+    display: inline-block;
+    text-align: center;
+    &:nth-child(1) {
+      width: 120px;
+    }
+    &:nth-child(2) {
+      width: 110px;
+    }
+    &:nth-child(3) {
+      width: 120px;
+    }
+    &:nth-child(4) {
+      width: 120px;
+    }
+
+    .start-home,
+    &:nth-child(1):hover ~ .anmation {
+      width: 120px;
+    }
+    .start-home,
+    &:nth-child(2):hover ~ .anmation {
+      width: 110px;
+      left: 120px;
+    }
+    .start-home,
+    &:nth-child(3):hover ~ .anmation {
+      width: 120px;
+      left: 230px;
+    }
+    .start-home,
+    &:nth-child(4):hover ~ .anmation {
+      width: 120px;
+      left: 350px;
+    }
+  }
+  .navbrand-img {
+    height: 50px !important;
+  }
 }
