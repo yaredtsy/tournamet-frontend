@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userAction } from "store/user/slice";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import {
   Navbar,
   Container,
@@ -17,9 +17,16 @@ import {
 } from "reactstrap";
 import EditUsernameModal from "./edit-username.components";
 import gamezone from "assets/img/gamezone.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "utils/firebase";
+
 function NavBar() {
+  const [user, loading, error] = useAuthState(auth);
   const [toggle, setToggle] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [modalShow, setModalShow] = useState(false);
   const dispatch = useDispatch();
 
@@ -27,6 +34,7 @@ function NavBar() {
     e.stopPropagation();
     dispatch(userAction.logoutStart(""));
   };
+
   return (
     <Navbar
       fixed="top"
@@ -53,49 +61,76 @@ function NavBar() {
           </div>
           <NavbarToggler onClick={() => setToggle(!toggle)} />
           <Collapse isOpen={toggle} navbar>
-            <Nav className="ml-auto ms-5 " navbar>
-              <NavItem className="nav-collapse">
-                <div className="anmation start-home"></div>
-                <NavLink to="" className="navbar_item  ">
+            <Nav className="ml-auto ms-5 nav-parent" navbar>
+              <NavItem className="nav-collapse border-right">
+                <NavLink
+                  to="/"
+                  className={
+                    location.pathname == "/"
+                      ? "navbar_item selected"
+                      : "navbar_item border-right"
+                  }
+                >
                   kukulu
                 </NavLink>
-                <NavLink to="" className="navbar_item ">
-                  Gebeta
+              </NavItem>
+
+              <NavItem className="nav-collapse ">
+                <NavLink
+                  to="/tras"
+                  className={
+                    location.pathname == "/tras"
+                      ? "navbar_item selected"
+                      : "navbar_item"
+                  }
+                >
+                  tras
                 </NavLink>
-                <NavLink to="" className="navbar_item ">
-                  trans
-                </NavLink>
-                <NavLink to="" className="navbar_item ">
+              </NavItem>
+
+              <NavItem className="nav-collapse ">
+                <NavLink
+                  to="/feta"
+                  className={
+                    location.pathname == "/feta"
+                      ? "navbar_item selected"
+                      : "navbar_item"
+                  }
+                >
                   feta
                 </NavLink>
               </NavItem>
+
+              <div className="animation start-home"></div>
             </Nav>
           </Collapse>
-          <div className="mr-0">
-            <UncontrolledDropdown setActiveFromChild>
-              <DropdownToggle
-                tag="a"
-                className="nav-link white text-white select-cusror"
-                caret
-              >
-                profile
-              </DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem
+          {user && (
+            <div className="mr-0">
+              <UncontrolledDropdown setActiveFromChild>
+                <DropdownToggle
                   tag="a"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setModalShow(true);
-                  }}
+                  className="nav-link white text-white select-cusror"
+                  caret
                 >
-                  Edit profile
-                </DropdownItem>
-                <DropdownItem tag="button" onClick={logoutHandler}>
-                  Logout
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          </div>
+                  profile
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem
+                    tag="a"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setModalShow(true);
+                    }}
+                  >
+                    Edit profile
+                  </DropdownItem>
+                  <DropdownItem tag="button" onClick={logoutHandler}>
+                    Logout
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </div>
+          )}
         </div>
       </Container>
       <EditUsernameModal

@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Hobo Std";
+  src: url("/assets/fonts/Hobo Std Medium.ttf");
+}
 body {
   font-family: "Nunito", sans-serif;
   font-size: 0.8rem;
@@ -42,65 +46,55 @@ body {
   background-size: cover;
 }
 
-.nav-bar {
-  background-color: rgba(0, 0, 0, 0.473);
-  .anmation {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    background-color: #1abc9c;
+.tras-background {
+  background: url("/assets/img/tras.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-    z-index: 0;
-    border-radius: 8px;
-    width: 120px;
-  }
-  .nav-collapse {
-    position: relative;
-  }
-  .navbar_item {
-    color: white;
-    text-decoration: none;
-    font-size: 1.25rem;
-    text-transform: uppercase;
-    line-height: 50px;
+.gebeta-background {
+  background: url("/assets/img/kukulu.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-    z-index: 1;
-    display: inline-block;
-    text-align: center;
-    &:nth-child(1) {
-      width: 120px;
-    }
-    &:nth-child(2) {
-      width: 110px;
-    }
-    &:nth-child(3) {
-      width: 120px;
-    }
-    &:nth-child(4) {
-      width: 120px;
-    }
+.feta-background {
+  background: url("/assets/img/fetalarge.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
-    .start-home,
-    &:nth-child(1):hover ~ .anmation {
-      width: 120px;
-    }
-    .start-home,
-    &:nth-child(2):hover ~ .anmation {
-      width: 110px;
-      left: 120px;
-    }
-    .start-home,
-    &:nth-child(3):hover ~ .anmation {
-      width: 120px;
-      left: 230px;
-    }
-    .start-home,
-    &:nth-child(4):hover ~ .anmation {
-      width: 120px;
-      left: 350px;
-    }
-  }
-  .navbrand-img {
-    height: 50px !important;
+.coming-soon {
+  font-family: "Hobo Std";
+  color: white;
+  font-weight: 600;
+  font-size: 7rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10%;
+}
+
+.kukulu-background::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: black;
+}
+
+.border-rounded {
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.body-color {
+  background-color: #e6e6e6;
+}
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .filter {
+    -webkit-backdrop-filter: blur(2em);
+    backdrop-filter: blur(2em);
   }
 }

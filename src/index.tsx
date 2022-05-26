@@ -3,6 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "assets/sass/index.scss";
+import "assets/sass/navbar.scss";
+import "assets/sass/home.scss";
+
 import { Provider } from "react-redux";
 import { store } from "store/stores";
 
