@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useAsyncDebounce } from "react-table";
 import { Label, Input } from "reactstrap";
-
+import { BiSearch } from "react-icons/bi";
 interface GlobalFilterPros {
   globalFilter: any;
   setGlobalFilter: any;
@@ -17,21 +17,18 @@ const GlobalFilter: React.FC<GlobalFilterPros> = ({
   });
 
   return (
-    <div>
-      <Label>Search Table: </Label>
+    <div className="input-group search-input">
+      <span className="input-group-text " id="basic-addon1">
+        <BiSearch />
+      </span>
       <Input
         value={value || ""}
         onChange={(e) => {
           setValue(e.target.value);
           onChange(e.target.value);
         }}
-        placeholder=" Enter value "
-        className="w-25"
-        style={{
-          fontSize: "1.1rem",
-          margin: "15px",
-          display: "inline",
-        }}
+        placeholder="Search..."
+        className="w-25 form-control"
       />
     </div>
   );

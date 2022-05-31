@@ -13,8 +13,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 import TrasPage from "page/homepage/tras-page";
 import FetaPage from "page/homepage/feta-page";
-
-import { PongSpinner, PushSpinner } from "react-spinners-kit";
+import Loading from "components/common/loading";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,11 +26,7 @@ function App() {
   }, [user]);
 
   if (loading) {
-    return (
-      <div>
-        <PongSpinner color="#e94b3cff" size={90} />
-      </div>
-    );
+    return <Loading />;
   }
   return (
     <span className="bg-light h-100">
@@ -61,7 +56,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<KukuluPage />} />
+          <Route
+            path="/"
+            element={
+              <PublicRoutes user={user} redirectTo="/dashboard">
+                <KukuluPage />
+              </PublicRoutes>
+            }
+          />
 
           <Route path="/tras" element={<TrasPage />} />
           <Route path="/feta" element={<FetaPage />} />

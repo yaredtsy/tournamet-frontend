@@ -134,7 +134,7 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
             )}
           </FormGroup>
           <Button type="submit" color="primary">
-            join
+            Save
           </Button>
         </form>
       </ModalBody>

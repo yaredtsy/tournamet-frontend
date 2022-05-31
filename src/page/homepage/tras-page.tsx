@@ -6,7 +6,7 @@ const TrasPage = () => {
   return (
     <CustomContainer className="tras-background v-100">
       <Container className="vh-100">
-        <div className="coming-soon shadow-lg">Comeing soon ....</div>
+        <div className="coming-soon">Comeing soon ....</div>
       </Container>
     </CustomContainer>
   );

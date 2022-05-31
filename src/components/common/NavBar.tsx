@@ -38,7 +38,7 @@ function NavBar() {
   return (
     <Navbar
       fixed="top"
-      className="navbar-dark  mr-auto ml-auto shadow-sm nav-bar "
+      className="navbar-dark  mr-auto ml-auto shadow-sm nav-bar vw-100"
       expand="md"
     >
       <Container>
@@ -103,34 +103,34 @@ function NavBar() {
 
               <div className="animation start-home"></div>
             </Nav>
-          </Collapse>
-          {user && (
-            <div className="mr-0">
-              <UncontrolledDropdown setActiveFromChild>
-                <DropdownToggle
-                  tag="a"
-                  className="nav-link white text-white select-cusror"
-                  caret
-                >
-                  profile
-                </DropdownToggle>
-                <DropdownMenu>
-                  <DropdownItem
+            {user && (
+              <div className="ms-auto">
+                <UncontrolledDropdown setActiveFromChild>
+                  <DropdownToggle
                     tag="a"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setModalShow(true);
-                    }}
+                    className="nav-link white text-white select-cusror"
+                    caret
                   >
-                    Edit profile
-                  </DropdownItem>
-                  <DropdownItem tag="button" onClick={logoutHandler}>
-                    Logout
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
-            </div>
-          )}
+                    ({user.phoneNumber})
+                  </DropdownToggle>
+                  <DropdownMenu>
+                    <DropdownItem
+                      tag="a"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setModalShow(true);
+                      }}
+                    >
+                      Edit profile
+                    </DropdownItem>
+                    <DropdownItem tag="button" onClick={logoutHandler}>
+                      Logout
+                    </DropdownItem>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+              </div>
+            )}
+          </Collapse>
         </div>
       </Container>
       <EditUsernameModal

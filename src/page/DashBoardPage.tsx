@@ -9,6 +9,8 @@ import { scoreboardAction } from "store/scoreboard/slice";
 import Userdata from "components/homepage/userdata.component";
 import CustomContainer from "components/Layouts/container.component";
 
+import Loading from "components/common/loading";
+
 function DashBoardPage() {
   const dispatch = useDispatch();
 
@@ -60,34 +62,23 @@ function DashBoardPage() {
     []
   );
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <Loading />;
   else
     return (
-      <CustomContainer>
-        <Container className="mt-5">
-          <Row className="align-items-center mb-4 d-flex">
-            <Col className="col-md-6 col-sm-10 mx-auto col-10">
-              <Card className="shadow-sm rounded border-0">
-                <CardTitle className="m-3 fw-bolder fs-5">
-                  Tournament Info{" "}
-                  {!tournament && (
-                    <span className="h5 p-3">No Active Tournament</span>
-                  )}
-                </CardTitle>
-                <CardBody>
-                  <TournamentInfo tournament={tournament} />
-                </CardBody>
-              </Card>
-            </Col>
-            <Col className="col-md-7 col-sm-10 mx-auto mt-2 col-10">
-              {players && <Userdata />}
-            </Col>
-          </Row>
+      <CustomContainer className="kukulu-background">
+        <div className="container-fluid filter">
+          <Container className="vh-100">
+            <Row className="align-items-center mb-4 d-flex ">
+              <Col className="col-md-12 col-sm-10 mx-auto col-10 mt-lg ">
+                <TournamentInfo tournament={tournament} />
+              </Col>
+            </Row>
 
-          {tournament && players && (
-            <KukuluTournamentTable columns={columns} data={players} />
-          )}
-        </Container>
+            {tournament && players && (
+              <KukuluTournamentTable columns={columns} data={players} />
+            )}
+          </Container>
+        </div>
       </CustomContainer>
     );
 }
