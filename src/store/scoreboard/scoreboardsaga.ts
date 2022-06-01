@@ -109,6 +109,7 @@ export function* joinTournamenAsync(action: {
     );
 
     setDoc(collec, {
+      claimed: false,
       ...action.payload.player,
     });
 

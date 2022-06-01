@@ -81,3 +81,16 @@
     }
   }
 }
+
+.mobile-navbar {
+  background-color: rgba(0, 0, 0, 0.986) !important;
+  .nav-collapse {
+    a {
+      text-decoration: none;
+      font-family: "Open Sans", sans-serif;
+      color: white;
+      text-transform: uppercase;
+      font-size: 1rem;
+    }
+  }
+}

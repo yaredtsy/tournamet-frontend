@@ -73,7 +73,7 @@ function OtpConfirmation() {
     <div className="kukulu-background ">
       <div className="container-fluid filter">
         <Row className="align-items-center vh-100">
-          <Col className="col-4 mx-auto my-auto" md="8" lg="4" sm="10">
+          <Col className="mx-auto my-auto" md="8" lg="4" sm="10">
             <Card className="shadow-sm border-rounded border-0 ">
               <CardTitle className="m-3">
                 <CardText className="fw-bolder fs-3  d-flex justify-content-center">

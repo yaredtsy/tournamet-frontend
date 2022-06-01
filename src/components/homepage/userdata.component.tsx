@@ -44,7 +44,7 @@ const Userdata = () => {
     );
   else {
     return (
-      <div>
+      <div className="mt-4">
         <JoinModal
           onClosed={() => {
             setModalShow(false);
@@ -53,7 +53,7 @@ const Userdata = () => {
           username={user?.displayName == null ? "" : user?.displayName}
         />
         <div className="d-flex flex-row  justify-content-evenly align-items-center text-white fs-4 ">
-          <span className="hobo">you havent joined the tournament</span>
+          <span className="hobo fs-sm">you havent joined the tournament</span>
           <Button
             color="primary"
             className="join-button "

@@ -21,6 +21,7 @@ interface TournamentType {
 
 interface PriceType {
   price: string;
+  value: number;
   rank: number;
 }
 

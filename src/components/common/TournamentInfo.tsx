@@ -23,6 +23,11 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
       let hour = Math.floor(minutes / 60);
       let day = Math.floor(hour / 24);
 
+      const sum = tournament.price.reduce((prev, current) => {
+        return prev + current.value;
+      }, 0);
+      setPricepool(sum.toString() + " Birr");
+
       switch (tournament.state) {
         case "OPEND":
           setTimeLeft("Waiting for players...");
@@ -48,7 +53,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
         <Col className="d-flex header-parent position-relative" md={6} lg={3}>
           <div className="headers-info ">
             <div className="text-center text-capitalize">game status</div>
-            <div className="text-center fs-4 green fw-bolder">
+            <div className="text-center fs-4 fw-bolder fs-sm">
               {tournament ? status : "n/A"}
             </div>
           </div>
@@ -59,7 +64,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
         <Col className="d-flex  header-parent position-relative" md={6} lg={3}>
           <div className="headers-info">
             <div className="text-center text-capitalize">timeleft</div>
-            <div className="text-center fs-4 fw-bolder">
+            <div className="text-center fs-4 fw-bolder fs-sm">
               {tournament ? timeleft : "n/A"}
             </div>
           </div>
@@ -67,7 +72,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
         <Col className="d-flex  header-parent position-relative" md={6} lg={2}>
           <div className="headers-info ">
             <div className="text-center text-capitalize">Price pool</div>
-            <div className="text-center fs-4 green fw-bolder">
+            <div className="text-center fs-4 fw-bolder fs-sm">
               {tournament ? pricepool : "n/A"}
             </div>
           </div>
@@ -77,15 +82,15 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
             <div className="text-center text-capitalize">
               min players required
             </div>
-            <div className="text-center fs-4 fw-bolder">
+            <div className="text-center fs-4 fw-bolder fs-sm">
               {tournament ? tournament.minPlayers : "n/A"}
             </div>
           </div>
         </Col>
-        <Col className="d-flex " md={6} lg={2}>
+        <Col className="d-flex" md={6} lg={2}>
           <div className="headers-info ">
             <div className="text-center text-capitalize">Players joined</div>
-            <div className="text-center fs-4 green fw-bolder">
+            <div className="text-center fs-4 fw-bolder fs-sm">
               {tournament ? tournament.totalPlayers : "n/A"}
             </div>
           </div>

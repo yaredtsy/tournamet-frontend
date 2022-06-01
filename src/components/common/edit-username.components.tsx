@@ -96,12 +96,15 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
                     })
                   );
               });
+              onClosed();
             } else {
+              console.log("login error");
+
               setErrors({ username: "username is alredy taken." });
             }
           } else onClosed();
         }
-      }
+      } else onClosed();
     },
   });
 
@@ -133,7 +136,11 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
               </small>
             )}
           </FormGroup>
-          <Button type="submit" color="primary">
+          <Button
+            type="submit"
+            color="primary"
+            disabled={formik.values.username == user?.displayName}
+          >
             Save
           </Button>
         </form>

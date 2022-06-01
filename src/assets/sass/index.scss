@@ -114,17 +114,36 @@ body {
 }
 .header-parent {
   // position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    display: block;
-    width: 5px;
-    height: 100%;
-    background: white;
-    transform: rotate(10deg);
-    right: 10%;
-    border-radius: 3px;
-    top: 0;
+  @media screen and(min-width: 768px) {
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 5px;
+      height: 100%;
+      background: white;
+      transform: rotate(10deg);
+      right: 10%;
+      border-radius: 3px;
+      top: 0;
+    }
+  }
+  @media screen and(max-width: 768px) {
+    .fs-sm {
+      font-size: calc(1.075rem + 0.3vw) !important;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 90%;
+      height: 1px;
+      background: white;
+
+      right: 10%;
+      border-radius: 3px;
+      bottom: 0;
+    }
   }
 }
 .headers-info {
@@ -136,6 +155,13 @@ body {
   }
 }
 
+@media screen and(max-width: 600px) {
+  .headers-info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+}
 .green {
   color: #4eda1e;
 }
@@ -155,6 +181,11 @@ body {
 }
 .tournament-inf {
   position: relative;
+}
+@media screen and(max-width: 768px) {
+  .fs-sm {
+    font-size: calc(1.075rem + 0.3vw) !important;
+  }
 }
 .tournament-inf::after {
   content: "";
