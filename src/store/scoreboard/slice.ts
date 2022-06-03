@@ -47,14 +47,17 @@ export const scoreBoardSlice = createSlice({
 
     joinTournamentStart: (
       state,
-      action: PayloadAction<{ player: PlayersType; tournament: TournamentType }>
+      action: PayloadAction<{
+        player: PlayersJoinType;
+        tournament: TournamentType;
+      }>
     ) => {
       state.isLoading = true;
     },
 
-    joinTournamentSuccess: (state, action: PayloadAction<PlayersType>) => {
+    joinTournamentSuccess: (state, action: PayloadAction<PlayersJoinType>) => {
       state.isLoading = false;
-      state.players?.push(action.payload);
+      state.players?.push({ score: 0, ...action.payload });
     },
 
     joinTournamentFailed: (state, action: PayloadAction<string>) => {

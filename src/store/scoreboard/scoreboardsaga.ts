@@ -102,7 +102,7 @@ export function* getPlayersStart() {
 }
 
 export function* joinTournamenAsync(action: {
-  payload: { player: PlayersType; tournament: TournamentType };
+  payload: { player: PlayersJoinType; tournament: TournamentType };
 }) {
   try {
     const collec = doc(

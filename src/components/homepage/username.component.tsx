@@ -52,7 +52,7 @@ const JoinModal: React.FC<JoinModalProps> = ({ show, onClosed, username }) => {
       values: { username: any },
       { setErrors }: { setErrors: any }
     ) => {
-      const player: PlayersType = {
+      const player: PlayersJoinType = {
         createdAt: Timestamp.now(),
         id: user?.uid != null ? user.uid : "",
         name: values.username,
@@ -60,7 +60,6 @@ const JoinModal: React.FC<JoinModalProps> = ({ show, onClosed, username }) => {
         rank:
           tournament?.totalPlayers != null ? tournament?.totalPlayers + 1 : 1,
         reward: "",
-        score: 0,
         token: "",
       };
       if (players) {
