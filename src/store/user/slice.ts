@@ -22,6 +22,7 @@ export const userSlice = createSlice({
     },
     logoutfailed: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.isLoading = false;
     },
 
     otpConfirmStart: (
@@ -39,7 +40,7 @@ export const userSlice = createSlice({
     },
     otpConfirmFailed: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
-      //   state.isLoading = false;
+      state.isLoading = false;
     },
     logoutStart: (state, action: PayloadAction<string>) => {
       state.isLoading = true;

@@ -1,5 +1,10 @@
-import HomePage from "./HomePage";
+import KukuluPage from "./homepage/KukuluPage";
 import LoginPage from "./LoginPage";
 import OtpPage from "./OtpConfirmationPage";
 import DashBoardPage from "./DashBoardPage";
-export { HomePage, LoginPage, OtpPage, DashBoardPage };
+
+import GebetaPage from "./homepage/gebeta-page";
+import FetaPage from "./homepage/feta-page";
+import TrasPage from "./homepage/tras-page";
+
+export { KukuluPage, LoginPage, OtpPage, DashBoardPage };

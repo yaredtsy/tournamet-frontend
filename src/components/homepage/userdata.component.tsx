@@ -20,27 +20,31 @@ const Userdata = () => {
 
   if (player)
     return (
-      <Card className="shadow-sm rounded border-0">
-        <CardBody className="d-flex flex-row justify-content-between">
-          <div className="p-2">
-            {" "}
-            <span className="h6 fw-bolder text-uppercase">username : </span>
-            <span className="text-muted fs-6">{player?.name}</span>
-          </div>
-          <div className="p-2">
-            <span className="h6 fw-bolder text-uppercase">rank : </span>
-            <span className="text-muted">{player?.rank}</span>
-          </div>
-          <div className="p-2">
-            <span className="h6 fw-bolder text-uppercase">score : </span>
-            <span className="text-muted fs-6">{player?.score}</span>
-          </div>
-        </CardBody>
-      </Card>
+      <div className="d-flex flex-row justify-content-between">
+        <div className="p-2 ">
+          {" "}
+          <span className="h6 fw-bolder text-uppercase text-white">
+            username :{" "}
+          </span>
+          <span className="fs-6 green">{player?.name}</span>
+        </div>
+        <div className="p-2">
+          <span className="h6 fw-bolder text-uppercase text-white">
+            rank :{" "}
+          </span>
+          <span className="green">{player?.rank}</span>
+        </div>
+        <div className="p-2">
+          <span className="h6 fw-bolder text-uppercase text-white">
+            score :{" "}
+          </span>
+          <span className="fs-6 green">{player?.score}</span>
+        </div>
+      </div>
     );
   else {
     return (
-      <Card>
+      <div className="mt-4">
         <JoinModal
           onClosed={() => {
             setModalShow(false);
@@ -48,20 +52,21 @@ const Userdata = () => {
           show={modalShow}
           username={user?.displayName == null ? "" : user?.displayName}
         />
-        <CardBody className="d-flex flex-row  justify-content-evenly align-items-center">
-          <span className="">you havent joined the tournament</span>
+        <div className="d-flex flex-row  justify-content-evenly align-items-center text-white fs-4 ">
+          <span className="hobo fs-sm">you havent joined the tournament</span>
           <Button
             color="primary"
-            size="md"
+            className="join-button "
+            size="lg"
             onClick={(e) => {
               e.preventDefault();
               setModalShow(true);
             }}
           >
-            <span className="m-3">Join </span>
+            <span className="m-4 fs-4">Join </span>
           </Button>
-        </CardBody>
-      </Card>
+        </div>
+      </div>
     );
   }
 };

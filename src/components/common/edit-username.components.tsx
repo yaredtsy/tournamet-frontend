@@ -17,6 +17,7 @@ import { scoreboardAction } from "store/scoreboard/slice";
 import { RootState } from "store/stores";
 import { userAction } from "store/user/slice";
 import { db } from "utils/firebase";
+import * as Yup from "yup";
 
 interface EditUsernameModalProps {
   show: boolean;
@@ -28,7 +29,9 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
   onClosed,
 }) => {
   const dispatch = useDispatch();
-
+  const validateScheme = Yup.object({
+    username: Yup.string().required("Please Enter you the code"),
+  });
   const { user }: { user: User | null } = useTypedSelector(
     (state) => state.user
   );
@@ -40,15 +43,21 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
   );
   const {
     tournament,
+    players,
   }: {
     tournament: TournamentType | null;
+    players: PlayersType[] | null;
   } = useTypedSelector((state) => state.scoreboard);
 
   const formik = useFormik({
     initialValues: {
       username: user?.displayName,
     },
-    onSubmit: (values) => {
+    validationSchema: validateScheme,
+    onSubmit: (
+      values: { username: any },
+      { setErrors }: { setErrors: any }
+    ) => {
       if (user?.displayName != values.username) {
         if (user) {
           updateProfile(user, { displayName: values.username }).then(
@@ -65,26 +74,37 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
           );
         }
         if (user && tournament) {
-          const ref = doc(
-            db,
-            "tournamentTEST",
-            tournament.id,
-            "user",
-            user.uid
-          );
-          updateDoc(ref, { name: values.username }).then((results) => {
-            console.log(results);
-            if (player && values.username)
-              dispatch(
-                scoreboardAction.updatePlayer({
-                  ...player,
-                  name: values.username,
-                })
+          if (players) {
+            const isUnique = players.every(
+              (player) => player.name != values.username
+            );
+            if (isUnique) {
+              const ref = doc(
+                db,
+                "tournamentTEST",
+                tournament.id,
+                "user",
+                user.uid
               );
-          });
-          onClosed();
+              updateDoc(ref, { name: values.username }).then((results) => {
+                console.log(results);
+                if (player && values.username)
+                  dispatch(
+                    scoreboardAction.updatePlayer({
+                      ...player,
+                      name: values.username,
+                    })
+                  );
+              });
+              onClosed();
+            } else {
+              console.log("login error");
+
+              setErrors({ username: "username is alredy taken." });
+            }
+          } else onClosed();
         }
-      }
+      } else onClosed();
     },
   });
 
@@ -93,6 +113,7 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
       aria-labelledby="contained-modal-title-vcenter"
       centered
       isOpen={show}
+      toggle={onClosed}
       onClosed={onClosed}
     >
       <ModalHeader>Enter username</ModalHeader>
@@ -109,9 +130,18 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
                 formik.values.username != null ? formik.values.username : ""
               }
             />
+            {formik.errors.username && formik.touched.username && (
+              <small id="username" className="form-text text-muted text-error">
+                {formik.errors.username.toString()}
+              </small>
+            )}
           </FormGroup>
-          <Button type="submit" color="primary">
-            join
+          <Button
+            type="submit"
+            color="primary"
+            disabled={formik.values.username == user?.displayName}
+          >
+            Save
           </Button>
         </form>
       </ModalBody>

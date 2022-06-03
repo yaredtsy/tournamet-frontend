@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { HomePage, LoginPage, OtpPage, DashBoardPage } from "page";
+import { KukuluPage, LoginPage, OtpPage, DashBoardPage } from "page";
 import { auth } from "utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,10 @@ import { userAction } from "store/user/slice";
 import { ProtectedRoute, PublicRoutes } from "components/routes";
 
 import "bootstrap/dist/css/bootstrap.css";
+
+import TrasPage from "page/homepage/tras-page";
+import FetaPage from "page/homepage/feta-page";
+import Loading from "components/common/loading";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +26,7 @@ function App() {
   }, [user]);
 
   if (loading) {
-    return <div>loading</div>;
+    return <Loading />;
   }
   return (
     <span className="bg-light h-100">
@@ -52,7 +56,17 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/"
+            element={
+              <PublicRoutes user={user} redirectTo="/dashboard">
+                <KukuluPage />
+              </PublicRoutes>
+            }
+          />
+
+          <Route path="/tras" element={<TrasPage />} />
+          <Route path="/feta" element={<FetaPage />} />
         </Routes>
       </BrowserRouter>
     </span>

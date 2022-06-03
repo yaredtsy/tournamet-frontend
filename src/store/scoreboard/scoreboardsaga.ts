@@ -58,9 +58,14 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
 
     const orderd: QueryConstraint = orderBy("score", "desc");
 
-    const orderdQuery: Query = query(collec, orderd);
+    const orderdQuery: Query = query(
+      collec,
+
+      where("tournamentJoined", "==", true)
+    );
 
     const players: QuerySnapshot = yield call(getDocs, orderdQuery);
+
     console.log(players);
 
     let playersList: PlayersType[] = [];
@@ -88,6 +93,8 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
     }
     yield put(scoreboardAction.getPlayersSuccess(playersList));
   } catch (error: any) {
+    console.log(error);
+
     yield put(scoreboardAction.getPlayersFailed(error.message));
   }
 }
@@ -109,6 +116,8 @@ export function* joinTournamenAsync(action: {
     );
 
     setDoc(collec, {
+      claimed: false,
+      tournamentJoined: true,
       ...action.payload.player,
     });
 

@@ -21,6 +21,7 @@ import useTypedSelector from "hooks/useTypedSelector";
 import { userAction } from "store/user/slice";
 import { ConfirmationResult, UserCredential } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { PongSpinner } from "react-spinners-kit";
 
 function OtpConfirmation() {
   const [otpError, setOtpError] = useState("");
@@ -69,61 +70,63 @@ function OtpConfirmation() {
   const otpCode: string = "";
 
   return (
-    <Container>
-      <Row className="align-items-center vh-100">
-        <Col className="col-6 mx-auto my-auto">
-          <Card className="shadow-sm rounded border-0">
-            <CardTitle className="m-3">
-              <CardText className="fw-bolder fs-5">Otp code</CardText>
-            </CardTitle>
-            <CardBody>
-              <Formik
-                initialValues={{ otpCode }}
-                onSubmit={(values, action) => {
-                  handleSubmit(values, action);
-                }}
-                validationSchema={validateScheme}
-              >
-                {({ errors, touched }) => (
-                  <Form>
-                    <FormGroup className="form-group">
-                      <Label>
-                        <span id="otpCode">otp code</span>
-                        <Tooltip
-                          placement="right"
-                          isOpen={istoggle}
-                          target="otpCode"
-                          toggle={() => setToggle(!istoggle)}
-                        >
-                          opt code sent by sms
-                        </Tooltip>
-                      </Label>
-                      <Field className="form-control" name="otpCode"></Field>
-                      {errors.otpCode && touched.otpCode && (
-                        <small
-                          id="otpCode"
-                          className="form-text text-muted text-error"
-                        >
-                          {errors.otpCode}.
-                        </small>
-                      )}
-                    </FormGroup>
-                    <div id="recaptcha-container" />
-                    {isLoading ? (
-                      <p>...is loading</p>
-                    ) : (
-                      <Button type="submit" color="primary">
-                        verify
-                      </Button>
-                    )}
-                  </Form>
-                )}
-              </Formik>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <div className="kukulu-background ">
+      <div className="container-fluid filter">
+        <Row className="align-items-center vh-100">
+          <Col className="mx-auto my-auto" md="8" lg="4" sm="10">
+            <Card className="shadow-sm border-rounded border-0 ">
+              <CardTitle className="m-3">
+                <CardText className="fw-bolder fs-3  d-flex justify-content-center">
+                  Otp code
+                </CardText>
+              </CardTitle>
+              <CardBody className="body-color">
+                <Formik
+                  initialValues={{ otpCode }}
+                  onSubmit={(values, action) => {
+                    handleSubmit(values, action);
+                  }}
+                  validationSchema={validateScheme}
+                >
+                  {({ errors, touched }) => (
+                    <Form>
+                      <FormGroup className="form-group">
+                        <div className="input-group">
+                          <span className="input-group-text">otp code</span>
+                          <Field
+                            className="form-control"
+                            name="otpCode"
+                            placeholder="otp"
+                          ></Field>
+                        </div>
+                        {errors.otpCode && touched.otpCode && (
+                          <small
+                            id="otpCode"
+                            className="form-text text-muted text-error"
+                          >
+                            {errors.otpCode}.
+                          </small>
+                        )}
+                      </FormGroup>
+                      <div id="recaptcha-container" />
+                      <div className=" d-flex justify-content-center">
+                        {isLoading ? (
+                          <PongSpinner color="#e94b3cff" size={40} />
+                        ) : (
+                          <Button type="submit" color="primary">
+                            verify
+                          </Button>
+                        )}
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    </div>
   );
 }
 

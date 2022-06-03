@@ -22,6 +22,7 @@ import * as Yup from "yup";
 
 import { userAction } from "store/user/slice";
 import { ConfirmationResult } from "firebase/auth";
+import { PongSpinner } from "react-spinners-kit";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -43,75 +44,73 @@ function LoginPage() {
   const validateScheme = Yup.object({
     phoneNumber: Yup.string()
       .required("Please Enter you phone number")
-      .matches(/^[+0-9]*$/, "The phone number must contain only numbers")
+      .matches(/^[90-9]*$/, "The phone number must contain only numbers")
+      .matches(/^9/, "the phone must start with 9")
       .min(9, "the phone number must be at least 9 characters"),
   });
 
   const handleSubmit = ({ phoneNumber }: { phoneNumber: string }) => {
-    console.log("handleSubmit");
-
-    console.log(phoneNumber);
-    dispatch(userAction.loginstart(phoneNumber));
+    dispatch(userAction.loginstart("+251" + phoneNumber));
   };
   const phoneNumber: string = "";
 
   return (
-    <Container>
-      <Row className="align-items-center vh-100">
-        <Col className="col-6 mx-auto my-auto">
-          <Card className="shadow-sm rounded border-0">
-            <CardTitle className="m-3">
-              <CardText className="fw-bolder fs-5">Login</CardText>
-            </CardTitle>
-            <CardBody>
-              <Formik
-                initialValues={{ phoneNumber }}
-                onSubmit={handleSubmit}
-                validationSchema={validateScheme}
-              >
-                {({ errors, touched }) => (
-                  <Form>
-                    <FormGroup className="form-group">
-                      <Label>
-                        <span id="phoneNumber">Phone number</span>
-                        <Tooltip
-                          placement="right"
-                          isOpen={istoggle}
-                          target="phoneNumber"
-                          toggle={() => setToggle(!istoggle)}
-                        >
-                          kukulus login phone number
-                        </Tooltip>
-                      </Label>
-                      <Field
-                        className="form-control"
-                        name="phoneNumber"
-                      ></Field>
-                      {errors.phoneNumber && touched.phoneNumber && (
-                        <small
-                          id="phoneNumber"
-                          className="form-text text-muted text-error"
-                        >
-                          {errors.phoneNumber}.
-                        </small>
-                      )}
-                    </FormGroup>
-                    <div id="recaptcha-container" />
-                    {isLoading ? (
-                      <p>loading</p>
-                    ) : (
-                      <Button type="submit" color="primary">
-                        Login
-                      </Button>
-                    )}
-                  </Form>
-                )}
-              </Formik>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+    <div className="kukulu-background ">
+      <div className="container-fluid filter">
+        <Row className="align-items-center vh-100">
+          <Col className="mx-auto my-auto" md="8" lg="4" sm="10">
+            <Card className="shadow-sm border-rounded border-0 ">
+              <CardTitle className="m-3">
+                <CardText className="fw-bolder fs-3 d-flex justify-content-center">
+                  Login
+                </CardText>
+              </CardTitle>
+              <CardBody className="body-color">
+                <Formik
+                  initialValues={{ phoneNumber }}
+                  onSubmit={handleSubmit}
+                  validationSchema={validateScheme}
+                >
+                  {({ errors, touched }) => (
+                    <Form>
+                      <FormGroup className="form-group rounded ">
+                        <div className="input-group">
+                          <span className="input-group-text">+251</span>
+                          <Field
+                            className="form-control"
+                            type="text"
+                            name="phoneNumber"
+                            placeholder="phone Number"
+                          ></Field>
+                        </div>
+                        {errors.phoneNumber && touched.phoneNumber && (
+                          <small
+                            id="phoneNumber"
+                            className="form-text text-muted text-error d-block"
+                          >
+                            {errors.phoneNumber}.
+                          </small>
+                        )}
+                      </FormGroup>
+                      <div id="recaptcha-container" />
+                      <div className=" d-flex justify-content-center">
+                        {isLoading ? (
+                          <PongSpinner color="#e94b3cff" size={40} />
+                        ) : (
+                          <Button type="submit" color="primary">
+                            Login
+                          </Button>
+                        )}
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
+    </div>
   );
 }
 
