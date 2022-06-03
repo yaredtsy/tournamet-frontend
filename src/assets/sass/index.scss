@@ -6,6 +6,10 @@
   font-family: "Open Sans", sans-serif;
   src: url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 }
+@font-face {
+  font-family: "Fredoka One", cursive;
+  src: url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+}
 body {
   font-family: "Nunito", sans-serif;
   font-size: 0.8rem;
@@ -65,7 +69,7 @@ body {
 }
 
 .coming-soon {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Fredoka One", cursive;
   color: white;
   font-weight: 600;
   font-size: 7rem;
@@ -77,8 +81,9 @@ body {
 
 @media screen and (max-width: 600px) {
   .coming-soon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     bottom: 50%;
+    width: 70%;
   }
   .kukulu-background {
     background-position-x: right;
@@ -114,6 +119,7 @@ body {
 }
 .header-parent {
   // position: relative;
+
   @media screen and(min-width: 768px) {
     &::before {
       content: "";
@@ -127,27 +133,39 @@ body {
       border-radius: 3px;
       top: 0;
     }
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   display: block;
+    //   width: 5px;
+    //   height: 100%;
+    //   background: white;
+    //   transform: rotate(10deg);
+    //   right: 10%;
+    //   border-radius: 3px;
+    //   top: 0;
+    // }
   }
   @media screen and(max-width: 768px) {
     .fs-sm {
       font-size: calc(1.075rem + 0.3vw) !important;
     }
-    &::before {
-      content: "";
-      position: absolute;
-      display: block;
-      width: 90%;
-      height: 1px;
-      background: white;
+    // &::before {
+    //   content: "";
+    //   position: absolute;
+    //   display: block;
+    //   width: 90%;
+    //   height: 1px;
+    //   background: white;
 
-      right: 10%;
-      border-radius: 3px;
-      bottom: 0;
-    }
+    //   right: 10%;
+    //   border-radius: 3px;
+    //   bottom: 0;
+    // }
   }
 }
 .headers-info {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Fredoka One", cursive;
   color: #fff;
 
   .bold {
@@ -157,21 +175,29 @@ body {
 
 @media screen and(max-width: 600px) {
   .headers-info {
-    display: flex;
-    gap: 20px;
-    align-items: center;
+    // display: flex;
+    // gap: 20px;
+    // align-items: center;
   }
 }
 .green {
   color: #4eda1e;
 }
 .hobo {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Fredoka One", cursive;
 }
 .search-input {
   border-radius: 20px;
   overflow: hidden;
   width: 55%;
+  @media screen and(max-width: 1000px) {
+    width: 80%;
+    margin-top: 50px;
+  }
+  @media screen and(max-width: 600px) {
+    width: 100%;
+    margin-top: 50px;
+  }
 }
 
 .join-button {
@@ -182,9 +208,12 @@ body {
 .tournament-inf {
   position: relative;
 }
-@media screen and(max-width: 768px) {
+@media screen and (max-width: 768px) {
   .fs-sm {
     font-size: calc(1.075rem + 0.3vw) !important;
+  }
+  .tournament-inf::after {
+    height: 2px;
   }
 }
 .tournament-inf::after {
@@ -192,7 +221,11 @@ body {
   position: absolute;
   width: 100%;
   height: 5%;
-  bottom: -20;
+  bottom: -20px;
+  transform: translateX(-1%);
   border-radius: 5px;
   background-color: #8e948c;
+  @media screen and (max-width: 1000px) {
+    height: 2px;
+  }
 }

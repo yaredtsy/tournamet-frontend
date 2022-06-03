@@ -6,7 +6,7 @@ const GebetaPage = () => {
   return (
     <CustomContainer className="gebeta-background v-100">
       <Container className="vh-100">
-        <div className="coming-soon">Comeing soon ....</div>
+        <div className="coming-soon">Coming soon</div>
       </Container>
     </CustomContainer>
   );
