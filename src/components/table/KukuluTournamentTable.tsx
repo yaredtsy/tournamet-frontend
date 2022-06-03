@@ -33,14 +33,14 @@ const KukuluTournamentTable: React.FC<KukuluTournamentTableProps> = ({
   const { globalFilter } = state;
   return (
     <>
-      <Row className="mt-5 mb-4">
-        <Col className="d-flex align-items-center" lg="6" md="6" sm="12">
+      <Row className="mt-5 mb-4 flex-column-reverse flex-sm-row flex-sm">
+        <Col className="d-flex align-items-center" lg="6" md="5" sm="5" xs="12">
           <GlobalFilter
             globalFilter={globalFilter}
             setGlobalFilter={setGlobalFilter}
           />
         </Col>
-        <Col lg="6" md="6" sm="12">
+        <Col lg="6" md="7" sm="7" xs="12">
           <Userdata />
         </Col>
       </Row>

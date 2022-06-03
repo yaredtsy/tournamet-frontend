@@ -30,16 +30,12 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
 
       switch (tournament.state) {
         case "OPEND":
-          setTimeLeft("Waiting for players...");
-          setStatus("Waiting for players...");
+          setTimeLeft("Waiting for players");
+          setStatus("Waiting for players");
           break;
         case "STARTED":
           setStatus("Started");
-          setTimeLeft(
-            `${day} days ${hour % 24} hours ${minutes % 60} minutes ${
-              second % 60
-            }`
-          );
+          setTimeLeft(`${day}d-${hour % 24}h-${minutes % 60}m-${second % 60}s`);
           break;
         default:
           break;
@@ -49,8 +45,13 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
 
   return (
     <div className="tournament-inf ">
-      <Row>
-        <Col className="d-flex header-parent position-relative" md={6} lg={3}>
+      <Row className="gy-5">
+        <Col
+          className="d-flex header-parent position-relative"
+          md={6}
+          lg={3}
+          xs={6}
+        >
           <div className="headers-info ">
             <div className="text-center text-capitalize">game status</div>
             <div className="text-center fs-4 fw-bolder fs-sm">
@@ -61,7 +62,12 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
             <CgFormatSlash />
           </span> */}
         </Col>
-        <Col className="d-flex  header-parent position-relative" md={6} lg={3}>
+        <Col
+          className="d-flex  header-parent position-relative"
+          md={4}
+          lg={3}
+          xs={6}
+        >
           <div className="headers-info">
             <div className="text-center text-capitalize">timeleft</div>
             <div className="text-center fs-4 fw-bolder fs-sm">
@@ -69,15 +75,27 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
             </div>
           </div>
         </Col>
-        <Col className="d-flex  header-parent position-relative" md={6} lg={2}>
+        <Col
+          className="d-flex  header-parent position-relative"
+          md={6}
+          lg={2}
+          xs={5}
+        >
           <div className="headers-info ">
-            <div className="text-center text-capitalize">Price pool</div>
+            <div className="text-center text-capitalize px-2">
+              Total Prize pool
+            </div>
             <div className="text-center fs-4 fw-bolder fs-sm">
               {tournament ? pricepool : "n/A"}
             </div>
           </div>
         </Col>
-        <Col className="d-flex  header-parent position-relative" md={6} lg={2}>
+        <Col
+          className="d-flex  header-parent position-relative"
+          md={6}
+          lg={2}
+          xs={4}
+        >
           <div className="headers-info ">
             <div className="text-center text-capitalize">
               min players required
@@ -87,7 +105,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
             </div>
           </div>
         </Col>
-        <Col className="d-flex" md={6} lg={2}>
+        <Col className="d-flex" md={6} lg={2} xs={3}>
           <div className="headers-info ">
             <div className="text-center text-capitalize">Players joined</div>
             <div className="text-center fs-4 fw-bolder fs-sm">

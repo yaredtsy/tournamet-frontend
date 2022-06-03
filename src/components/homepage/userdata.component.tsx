@@ -53,7 +53,7 @@ const Userdata = () => {
           username={user?.displayName == null ? "" : user?.displayName}
         />
         <div className="d-flex flex-row  justify-content-evenly align-items-center text-white fs-4 ">
-          <span className="hobo fs-sm">you havent joined the tournament</span>
+          <span className="hobo fs-sm">You haven't joined the tournament.</span>
           <Button
             color="primary"
             className="join-button "
