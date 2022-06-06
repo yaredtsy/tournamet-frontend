@@ -67,11 +67,11 @@ const KukuluTournamentTable: React.FC<KukuluTournamentTableProps> = ({
             const e: PlayersType = row.original as PlayersType;
 
             let bgcolor: string = "";
-            let textColor: string = "";
+            let textColor: string = "text-white";
 
             if (e.id === user?.uid) {
               bgcolor = "bg-info";
-              textColor = " text-white";
+              textColor = " text-white fs-5";
             }
 
             return (

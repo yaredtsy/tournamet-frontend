@@ -15,13 +15,17 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
 
   useEffect(() => {
     if (tournament) {
-      let time = tournament.endesAt - Date.now();
-      console.log(time);
+      setInterval(() => {
+        let time = tournament.endesAt - Date.now();
 
-      let second = Math.floor(time / 1000);
-      let minutes = Math.floor(second / 60);
-      let hour = Math.floor(minutes / 60);
-      let day = Math.floor(hour / 24);
+        let second = Math.floor(time / 1000);
+        let minutes = Math.floor(second / 60);
+        let hour = Math.floor(minutes / 60);
+        let day = Math.floor(hour / 24);
+
+        if (tournament.state == "STARTED")
+          setTimeLeft(`${day}d-${hour % 24}h-${minutes % 60}m-${second % 60}s`);
+      }, 1000);
 
       const sum = tournament.price.reduce((prev, current) => {
         return prev + current.value;
@@ -35,7 +39,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           break;
         case "STARTED":
           setStatus("Started");
-          setTimeLeft(`${day}d-${hour % 24}h-${minutes % 60}m-${second % 60}s`);
+
           break;
         default:
           break;

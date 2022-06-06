@@ -20,6 +20,7 @@ import {
   DocumentSnapshot,
   updateDoc,
 } from "firebase/firestore/lite";
+// import { onSnapshot, collection as collection2, } from "firebase/firestore";
 
 export function* getTournamentAsync() {
   try {
@@ -65,10 +66,10 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
 
       where("tournamentJoined", "==", true)
     );
-
+    // onSnapshot(orderdQuery, (snapshot) => {
+    //   console.log();
+    // });
     const players: QuerySnapshot = yield call(getDocs, orderdQuery);
-
-    console.log(players);
 
     let playersList: PlayersType[] = [];
 

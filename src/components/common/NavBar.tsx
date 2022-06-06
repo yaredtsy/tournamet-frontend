@@ -149,7 +149,7 @@ function NavBar() {
                       className="nav-link white text-white select-cusror"
                       caret
                     >
-                      {user.displayName}({user.phoneNumber})
+                      {user.displayName} ({user.phoneNumber})
                     </DropdownToggle>
                     <DropdownMenu>
                       <DropdownItem

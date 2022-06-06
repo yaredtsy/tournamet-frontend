@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { Timestamp } from "firebase/firestore/lite";
 import {
   Button,
@@ -79,6 +79,17 @@ const JoinModal: React.FC<JoinModalProps> = ({ show, onClosed, username }) => {
       }
     },
   });
+
+  useEffect(() => {
+    if (
+      show &&
+      user?.displayName?.length != null &&
+      user?.displayName?.length > 0
+    ) {
+      onClosed();
+      formik.submitForm();
+    }
+  }, [formik, show]);
 
   return (
     <Modal
