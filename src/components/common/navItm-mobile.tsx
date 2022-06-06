@@ -70,7 +70,7 @@ const MobileNavModal: React.FC<MobileNavModalProps> = ({
                 className="nav-link white text-white select-cusror"
                 caret
               >
-                ({user.phoneNumber})
+                {user.displayName} ({user.phoneNumber})
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem
