@@ -1,5 +1,4 @@
-import { useLocation, useNavigate } from "@reach/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -51,7 +50,7 @@ const MobileNavModal: React.FC<MobileNavModalProps> = ({
           navbar
         >
           <NavItem className="nav-collapse mb-3 ">
-            <NavLink to="/">kukulu</NavLink>
+            <NavLink to="/kukulu">kukulu</NavLink>
           </NavItem>
 
           <NavItem className="nav-collapse mb-3">

@@ -16,7 +16,7 @@ import {
   NavItem,
 } from "reactstrap";
 import EditUsernameModal from "./edit-username.components";
-import gamezone from "assets/img/gamezone.png";
+import gamezone from "assets/img/log2.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "utils/firebase";
 import MobileNavModal from "./navItm-mobile";
@@ -102,9 +102,9 @@ function NavBar() {
               <Nav className="ml-auto ms-5 nav-parent" navbar>
                 <NavItem className="nav-collapse border-right">
                   <NavLink
-                    to="/"
+                    to="/kukulu"
                     className={
-                      location.pathname == "/"
+                      location.pathname == "/kukulu"
                         ? "navbar_item selected"
                         : "navbar_item border-right"
                     }

@@ -14,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import TrasPage from "page/homepage/tras-page";
 import FetaPage from "page/homepage/feta-page";
 import Loading from "components/common/loading";
+import HomePage from "page/homepage/homepage";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ function App() {
             }
           />
           <Route
-            path="/"
+            path="/kukulu"
             element={
               <PublicRoutes user={user} redirectTo="/dashboard">
                 <KukuluPage />
@@ -65,6 +66,7 @@ function App() {
             }
           />
 
+          <Route path="/" element={<HomePage />} />
           <Route path="/tras" element={<TrasPage />} />
           <Route path="/feta" element={<FetaPage />} />
         </Routes>
