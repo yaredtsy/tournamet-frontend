@@ -77,7 +77,7 @@ function OtpConfirmation() {
             <Card className="shadow-sm border-rounded border-0 ">
               <CardTitle className="m-3">
                 <CardText className="fw-bolder fs-3  d-flex justify-content-center">
-                  Otp code
+                  SMS verification code.
                 </CardText>
               </CardTitle>
               <CardBody className="body-color">
@@ -92,7 +92,6 @@ function OtpConfirmation() {
                     <Form>
                       <FormGroup className="form-group">
                         <div className="input-group">
-                          <span className="input-group-text">otp code</span>
                           <Field
                             className="form-control"
                             name="otpCode"

@@ -35,7 +35,7 @@ function KukuluPage() {
           <div className="content">
             <div className="header">
               <span className="header-head fw-bolder">Compete</span>
-              <span className="header-foot fw-bolder"> And in 500</span>
+              <span className="header-foot fw-bolder"> And win prizes</span>
             </div>
             <div className="buttons align-self-center d-flex justify-content-center mt-5">
               <Button

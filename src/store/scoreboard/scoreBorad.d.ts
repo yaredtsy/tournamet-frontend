@@ -9,6 +9,17 @@ interface PlayersType {
   token: any | null;
 }
 
+interface PlayersJoinType {
+  name: string;
+
+  rank: number;
+  reward: string;
+  id: string;
+  phoneNumber: string;
+  createdAt: Timestamp;
+  token: any | null;
+}
+
 interface TournamentType {
   enteringFee: number;
   minPlayers: number;
@@ -23,6 +34,7 @@ interface PriceType {
   price: string;
   value: number;
   rank: number;
+  gameZonePrice: string;
 }
 
 interface ScoreBoardType {

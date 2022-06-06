@@ -15,7 +15,12 @@ import {
   QueryDocumentSnapshot,
   setDoc,
   doc,
+  getDoc,
+  DocumentReference,
+  DocumentSnapshot,
+  updateDoc,
 } from "firebase/firestore/lite";
+// import { onSnapshot, collection as collection2, } from "firebase/firestore";
 
 export function* getTournamentAsync() {
   try {
@@ -61,10 +66,10 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
 
       where("tournamentJoined", "==", true)
     );
-
+    // onSnapshot(orderdQuery, (snapshot) => {
+    //   console.log();
+    // });
     const players: QuerySnapshot = yield call(getDocs, orderdQuery);
-
-    console.log(players);
 
     let playersList: PlayersType[] = [];
 
@@ -72,7 +77,7 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
       players.docs.forEach((player, index) => {
         let reward: string = "0 birr";
         if (index < action.payload.price.length) {
-          reward = action.payload.price[index].price;
+          reward = action.payload.price[index].gameZonePrice;
         }
 
         const playerData: PlayersType = {
@@ -102,7 +107,7 @@ export function* getPlayersStart() {
 }
 
 export function* joinTournamenAsync(action: {
-  payload: { player: PlayersType; tournament: TournamentType };
+  payload: { player: PlayersJoinType; tournament: TournamentType };
 }) {
   try {
     const collec = doc(
@@ -113,11 +118,16 @@ export function* joinTournamenAsync(action: {
       action.payload.player.id
     );
 
-    setDoc(collec, {
-      claimed: false,
-      tournamentJoined: true,
-      ...action.payload.player,
-    });
+    const exists: DocumentSnapshot = yield call(getDoc, collec);
+    if (exists.exists()) {
+      updateDoc(collec, { tournamentJoined: true });
+    } else
+      setDoc(collec, {
+        claimed: false,
+        tournamentJoined: true,
+        score: 0,
+        ...action.payload.player,
+      });
 
     yield put(scoreboardAction.joinTournamentSuccess(action.payload.player));
     const form = {
