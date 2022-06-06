@@ -15,6 +15,10 @@ import {
   QueryDocumentSnapshot,
   setDoc,
   doc,
+  getDoc,
+  DocumentReference,
+  DocumentSnapshot,
+  updateDoc,
 } from "firebase/firestore/lite";
 
 export function* getTournamentAsync() {
@@ -113,11 +117,16 @@ export function* joinTournamenAsync(action: {
       action.payload.player.id
     );
 
-    setDoc(collec, {
-      claimed: false,
-      tournamentJoined: true,
-      ...action.payload.player,
-    });
+    const exists: DocumentSnapshot = yield call(getDoc, collec);
+    if (exists.exists()) {
+      updateDoc(collec, { tournamentJoined: true });
+    } else
+      setDoc(collec, {
+        claimed: false,
+        tournamentJoined: true,
+        score: 0,
+        ...action.payload.player,
+      });
 
     yield put(scoreboardAction.joinTournamentSuccess(action.payload.player));
     const form = {
