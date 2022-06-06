@@ -102,6 +102,18 @@ function NavBar() {
               <Nav className="ml-auto ms-5 nav-parent" navbar>
                 <NavItem className="nav-collapse border-right">
                   <NavLink
+                    to="/"
+                    className={
+                      location.pathname == "/"
+                        ? "navbar_item selected"
+                        : "navbar_item border-right"
+                    }
+                  >
+                    GOA
+                  </NavLink>
+                </NavItem>
+                <NavItem className="nav-collapse border-right">
+                  <NavLink
                     to="/kukulu"
                     className={
                       location.pathname == "/kukulu"
