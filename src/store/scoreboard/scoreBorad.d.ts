@@ -34,6 +34,7 @@ interface PriceType {
   price: string;
   value: number;
   rank: number;
+  gameZonePrice: string;
 }
 
 interface ScoreBoardType {

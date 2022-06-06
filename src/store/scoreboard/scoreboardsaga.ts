@@ -77,7 +77,7 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
       players.docs.forEach((player, index) => {
         let reward: string = "0 birr";
         if (index < action.payload.price.length) {
-          reward = action.payload.price[index].price;
+          reward = action.payload.price[index].gameZonePrice;
         }
 
         const playerData: PlayersType = {
