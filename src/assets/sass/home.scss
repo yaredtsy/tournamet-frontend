@@ -33,11 +33,11 @@
 
     .header-head {
       display: block;
-      font-size: 6.5rem;
+      font-size: 5.5rem;
       font-family: "Fredoka One", cursive;
     }
     .header-foot {
-      font-size: 6rem;
+      font-size: 5rem;
       font-family: "Fredoka One", cursive;
     }
   }
@@ -55,15 +55,15 @@
   .home_contet {
     .header {
       .header-head {
-        font-size: 4rem;
-      }
-      .header-foot {
         font-size: 3rem;
       }
+      .header-foot {
+        font-size: 2.5rem;
+      }
     }
-    .mt-mob {
-      margin-top: 1rem;
-    }
+  }
+  .mt-mob {
+    margin-top: 30rem !important;
   }
   .align-desk {
     align-items: baseline;
@@ -88,6 +88,31 @@
 
 @media screen and (max-width: 600px) {
   .fs-md-4 {
-    font-size: 1rem !important;
+    font-size: 0.8rem !important;
   }
+  .button-icon {
+    height: 30px !important;
+    width: 30px;
+    object-fit: cover;
+  }
+}
+.home_container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .home_page_filter {
+    -webkit-backdrop-filter: blur(0.7em);
+    backdrop-filter: blur(0.7em);
+    background-color: #00000038;
+    height: 100%;
+  }
+}
+
+.button-icon {
+  height: 50px;
+  object-fit: cover;
+  float: left;
 }

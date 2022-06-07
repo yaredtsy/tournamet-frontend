@@ -26,6 +26,9 @@
     &:nth-child(3) {
       width: 120px;
     }
+    &:nth-child(4) {
+      width: 120px;
+    }
 
     .start-home,
     &:nth-child(1):hover ~ .animation {
@@ -42,6 +45,11 @@
     &:nth-child(3):hover ~ .animation {
       width: 120px;
       left: 240px;
+    }
+    .start-home,
+    &:nth-child(4):hover ~ .animation {
+      width: 120px;
+      left: 360px;
     }
   }
   .navbar_item {

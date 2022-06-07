@@ -63,9 +63,9 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
 
     const orderdQuery: Query = query(
       collec,
-
       where("tournamentJoined", "==", true)
     );
+
     // onSnapshot(orderdQuery, (snapshot) => {
     //   console.log();
     // });
@@ -76,8 +76,8 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
     if (!players.empty) {
       players.docs.forEach((player, index) => {
         let reward: string = "0 birr";
-        if (index < action.payload.price.length) {
-          reward = action.payload.price[index].gameZonePrice;
+        if (player.data().rank - 1 < action.payload.price.length) {
+          reward = action.payload.price[player.data().rank - 1].gameZonePrice;
         }
 
         const playerData: PlayersType = {
@@ -93,6 +93,7 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
 
         playersList.push(playerData);
       });
+      playersList.sort((a, b) => a.rank - b.rank);
     }
     yield put(scoreboardAction.getPlayersSuccess(playersList));
   } catch (error: any) {

@@ -18,6 +18,8 @@ import { RootState } from "store/stores";
 import { userAction } from "store/user/slice";
 import { db } from "utils/firebase";
 import * as Yup from "yup";
+import { auth } from "utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface EditUsernameModalProps {
   show: boolean;
@@ -28,6 +30,7 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
   show,
   onClosed,
 }) => {
+  const [users, loading, error] = useAuthState(auth);
   const dispatch = useDispatch();
   const validateScheme = Yup.object({
     username: Yup.string().required("Please Enter you the code"),
@@ -58,22 +61,28 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
       values: { username: any },
       { setErrors }: { setErrors: any }
     ) => {
-      if (user?.displayName != values.username) {
-        if (user) {
-          updateProfile(user, { displayName: values.username }).then(
+      if (users?.displayName != values.username) {
+        console.log("onSubmit <=");
+
+        if (users) {
+          console.log("onSubmit if (user) {=><=} ");
+          console.log(user);
+
+          updateProfile(users, { displayName: values.username }).then(
             (results) => {
-              console.log(results);
+              console.log("result");
+
+              console.log(users);
               if (values.username)
                 dispatch(
                   userAction.userUpdated({
-                    ...user,
-                    displayName: values.username,
+                    ...users,
                   })
                 );
             }
           );
         }
-        if (user && tournament) {
+        if (users && tournament) {
           if (players) {
             const isUnique = players.every(
               (player) => player.name != values.username
@@ -84,10 +93,10 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
                 "tournamentTEST",
                 tournament.id,
                 "user",
-                user.uid
+                users.uid
               );
               updateDoc(ref, { name: values.username }).then((results) => {
-                console.log(results);
+                console.log(values.username);
                 if (player && values.username)
                   dispatch(
                     scoreboardAction.updatePlayer({

@@ -93,9 +93,10 @@ function OtpConfirmation() {
                       <FormGroup className="form-group">
                         <div className="input-group">
                           <Field
+                            autocomplete="off"
                             className="form-control"
                             name="otpCode"
-                            placeholder="otp"
+                            placeholder="Verfication code"
                           ></Field>
                         </div>
                         {errors.otpCode && touched.otpCode && (
