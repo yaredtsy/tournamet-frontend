@@ -77,6 +77,7 @@ function LoginPage() {
                         <div className="input-group">
                           <span className="input-group-text">+251</span>
                           <Field
+                            autocomplete="off"
                             className="form-control"
                             type="text"
                             name="phoneNumber"

@@ -63,8 +63,7 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
 
     const orderdQuery: Query = query(
       collec,
-      where("tournamentJoined", "==", true),
-      orderBy("tournamentJoined")
+      where("tournamentJoined", "==", true)
     );
 
     // onSnapshot(orderdQuery, (snapshot) => {
