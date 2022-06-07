@@ -5,7 +5,9 @@ import GlobalFilter from "./GlobalFilter";
 
 import { User } from "firebase/auth";
 import Userdata from "components/homepage/userdata.component";
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
+import kukuluicon from "assets/img/icon.png";
+
 interface KukuluTournamentTableProps {
   columns: any;
   data: any;
@@ -33,7 +35,28 @@ const KukuluTournamentTable: React.FC<KukuluTournamentTableProps> = ({
   const { globalFilter } = state;
   return (
     <>
-      <Row className="mt-5 mb-4 flex-column-reverse flex-sm-row flex-sm">
+      <Row className="mt-5 mb-4 flex-column-reverse flex-sm-row flex-sm gy-4 mb-5">
+        <Col
+          lg={12}
+          className="gy-4 d-flex align-items-center justify-content-center "
+        >
+          <Button
+            className="rounded fs-2 ms-2 fs-md-4 shadow "
+            color="primary"
+            size="lg"
+            onClick={(e) => {
+              window.location.href = "https://www.kinet.store/kukuluet/";
+            }}
+          >
+            <img
+              src={kukuluicon}
+              alt="kukulu"
+              className="img-fluid button-icon"
+            />
+
+            <span className="mx-3 pt-3">Download Game to Start Playing</span>
+          </Button>
+        </Col>
         <Col className="d-flex align-items-center" lg="6" md="5" sm="5" xs="12">
           <GlobalFilter
             globalFilter={globalFilter}
@@ -71,7 +94,7 @@ const KukuluTournamentTable: React.FC<KukuluTournamentTableProps> = ({
 
             if (e.id === user?.uid) {
               bgcolor = "bg-info";
-              textColor = " text-white fs-5";
+              textColor = " text-white";
             }
 
             return (

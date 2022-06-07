@@ -88,7 +88,12 @@
 
 @media screen and (max-width: 600px) {
   .fs-md-4 {
-    font-size: 1rem !important;
+    font-size: 0.8rem !important;
+  }
+  .button-icon {
+    height: 30px !important;
+    width: 30px;
+    object-fit: cover;
   }
 }
 .home_container {
@@ -102,5 +107,12 @@
     -webkit-backdrop-filter: blur(0.7em);
     backdrop-filter: blur(0.7em);
     background-color: #00000038;
+    height: 100%;
   }
+}
+
+.button-icon {
+  height: 50px;
+  object-fit: cover;
+  float: left;
 }

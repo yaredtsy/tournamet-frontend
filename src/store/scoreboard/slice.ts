@@ -68,7 +68,10 @@ export const scoreBoardSlice = createSlice({
       const index: number | undefined = state.players?.findIndex(
         (player) => player.id === action.payload.id
       );
-      if (state.players != null && index) state.players[index] = action.payload;
+
+      if (state.players && index != null) {
+        state.players[index] = action.payload;
+      }
     },
   },
 });

@@ -45,7 +45,7 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-            <Row className="my-5 gy-5 ms-3">
+            <Row className="my-5 gy-5 ">
               <Col sm={12} md={4}>
                 <Card>
                   <CardImg src={kukulu} />

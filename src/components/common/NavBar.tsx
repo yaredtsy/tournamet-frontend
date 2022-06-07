@@ -20,11 +20,16 @@ import gamezone from "assets/img/log2.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "utils/firebase";
 import MobileNavModal from "./navItm-mobile";
+import useTypedSelector from "hooks/useTypedSelector";
+import { User } from "firebase/auth";
 
 function NavBar() {
   const [width, setWindowWidth] = useState(0);
 
-  const [user, loading, error] = useAuthState(auth);
+  const { user }: { user: User | null } = useTypedSelector(
+    (state) => state.user
+  );
+
   const [toggle, setToggle] = useState(false);
 
   const navigate = useNavigate();
@@ -43,7 +48,6 @@ function NavBar() {
 
   useEffect(() => {
     updateDimensions();
-
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);

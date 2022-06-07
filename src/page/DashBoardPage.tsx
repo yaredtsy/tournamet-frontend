@@ -25,8 +25,12 @@ function DashBoardPage() {
   } = useTypedSelector((state) => state.scoreboard);
 
   useEffect(() => {
-    if (!isLoading) dispatch(scoreboardAction.getTournamentStart(""));
-  }, []);
+    if (!isLoading && !tournament) {
+      console.log(tournament);
+
+      dispatch(scoreboardAction.getTournamentStart(""));
+    }
+  }, [isLoading, tournament]);
 
   useEffect(() => {
     if (tournament) {
@@ -37,26 +41,24 @@ function DashBoardPage() {
   const columns = React.useMemo(
     () => [
       {
-        // Second group - Details
         Header: "Rank",
-        // Second group columns
         accessor: "rank" as const,
       },
       {
-        // first group - TV Show
         Header: "Name",
-        // First group columns
         accessor: "name" as const,
+        disableSortBy: true,
       },
       {
-        // Second group - Details
         Header: "Score",
-        // Second group columns
+
         accessor: "score" as const,
+        disableSortBy: true,
       },
       {
         Header: "Reward",
         accessor: "reward" as const,
+        disableSortBy: true,
       },
     ],
     []
@@ -65,9 +67,9 @@ function DashBoardPage() {
   if (isLoading) return <Loading />;
   else
     return (
-      <CustomContainer className="kukulu-background">
-        <div className="container-fluid filter">
-          <Container className="vh-100">
+      <CustomContainer className="kukulu-background ">
+        <div className="container-fluid filter mb-5">
+          <Container className="mb-5">
             <Row className="align-items-center mb-4 d-flex ">
               <Col className="col-md-12 col-sm-10 mx-auto col-10 mt-lg ">
                 <TournamentInfo tournament={tournament} />
@@ -78,6 +80,15 @@ function DashBoardPage() {
               <KukuluTournamentTable columns={columns} data={players} />
             )}
           </Container>
+
+          <div className="mt-5 v-50">_</div>
+          {/* >
+          <div className="mt5 vh-25">df</div>
+          <div className="mt5 vh-25">df</div>
+          <div className="mt5 vh-25">df</div>
+          <div className="mt5 vh-100">fd</div>
+
+          <div className="mt5 vh-100">df</div> */}
         </div>
       </CustomContainer>
     );

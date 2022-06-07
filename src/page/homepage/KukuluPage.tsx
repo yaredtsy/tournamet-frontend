@@ -23,7 +23,8 @@ function KukuluPage() {
   } = useTypedSelector((state) => state.scoreboard);
 
   useEffect(() => {
-    // if (isLoading == false) dispatch(scoreboardAction.getTournamentStart(""));
+    if (isLoading == false && tournament == null)
+      dispatch(scoreboardAction.getTournamentStart(""));
   }, [isLoading]);
 
   if (isLoading) {
@@ -40,22 +41,16 @@ function KukuluPage() {
               </div>
               <div className="buttons align-self-center d-flex justify-content-center mt-5">
                 <Button
-                  className="rounded fs-2 fs-md-4"
+                  className="rounded fs-2 fs-md-4 shadow"
                   color="danger"
                   size="lg"
                   onClick={() => navigate("/login", { replace: true })}
                 >
-                  <span className="mx-3">Join Now</span>
-                </Button>
-                <Button
-                  className="rounded fs-2 ms-2  fs-md-4"
-                  color="primary"
-                  size="lg"
-                  onClick={(e) => {
-                    window.location.href = "https://www.kinet.store/kukuluet/";
-                  }}
-                >
-                  <span className="mx-3">Download Game</span>
+                  <span className="mx-3">
+                    {tournament
+                      ? "Join Now and win " + tournament.price[0].gameZonePrice
+                      : " Join Now"}
+                  </span>
                 </Button>
               </div>
             </div>
