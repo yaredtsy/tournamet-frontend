@@ -61,7 +61,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           <div className="headers-info ">
             <div className="text-center text-capitalize">game status</div>
             <div className="text-center fs-4 fw-bolder fs-sm">
-              {tournament ? status : "n/A"}
+              {tournament ? status : "n/a"}
             </div>
           </div>
           {/* <span className="text-white fs-1 ms-auto d-flex align-items-start">
@@ -77,7 +77,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           <div className="headers-info">
             <div className="text-center text-capitalize">timeleft</div>
             <div className="text-center fs-4 fw-bolder fs-sm">
-              {tournament ? timeleft : "n/A"}
+              {tournament ? timeleft : "n/a"}
             </div>
           </div>
         </Col>
@@ -92,7 +92,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
               Total Prize pool
             </div>
             <div className="text-center fs-4 fw-bolder fs-sm">
-              {tournament ? pricepool : "n/A"}
+              {tournament ? pricepool : "n/a"}
             </div>
           </div>
         </Col>
@@ -107,7 +107,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
               min players required
             </div>
             <div className="text-center fs-4 fw-bolder fs-sm">
-              {tournament ? tournament.minPlayers : "n/A"}
+              {tournament ? tournament.minPlayers : "n/a"}
             </div>
           </div>
         </Col>
@@ -115,7 +115,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           <div className="headers-info ">
             <div className="text-center text-capitalize">Players joined</div>
             <div className="text-center fs-4 fw-bolder fs-sm">
-              {tournament ? tournament.totalPlayers : "n/A"}
+              {tournament ? tournament.totalPlayers : "n/a"}
             </div>
           </div>
         </Col>

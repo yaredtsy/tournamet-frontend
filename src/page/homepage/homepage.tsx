@@ -24,7 +24,8 @@ const HomePage = () => {
   } = useTypedSelector((state) => state.scoreboard);
 
   useEffect(() => {
-    if (!isLoading) dispatch(scoreboardAction.getTournamentStart(""));
+    if (!isLoading && tournament == null)
+      dispatch(scoreboardAction.getTournamentStart(""));
   }, []);
 
   return (
@@ -56,7 +57,7 @@ const HomePage = () => {
                     >
                       {tournament
                         ? "Join to win " + tournament.price[0].gameZonePrice
-                        : "join"}
+                        : "Join"}
                     </Link>
                   </CardBody>
                 </Card>

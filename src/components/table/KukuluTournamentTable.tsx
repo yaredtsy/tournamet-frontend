@@ -35,35 +35,35 @@ const KukuluTournamentTable: React.FC<KukuluTournamentTableProps> = ({
   const { globalFilter } = state;
   return (
     <>
-      <Row className="mt-5 mb-4 flex-column-reverse flex-sm-row flex-sm gy-4 mb-5">
-        <Col
-          lg={12}
-          className="gy-4 d-flex align-items-center justify-content-center "
-        >
+      <Row className="mt-5 mb-4  gy-4 mb-5">
+        <Col lg="4" md="7" sm="7" xs="12" className="d-flex">
           <Button
             className="rounded fs-2 ms-2 fs-md-4 shadow "
             color="primary"
-            size="lg"
+            size="sm"
             onClick={(e) => {
               window.location.href = "https://www.kinet.store/kukuluet/";
             }}
           >
-            <img
-              src={kukuluicon}
-              alt="kukulu"
-              className="img-fluid button-icon"
-            />
+            <div className="d-flex align-items-center">
+              <img
+                src={kukuluicon}
+                alt="kukulu"
+                className="img-fluid button-icon"
+              />
 
-            <span className="mx-3 pt-3">Download Game to Start Playing</span>
+              <span className="mx-3  fs-6">Download Game to Start Playing</span>
+            </div>
           </Button>
         </Col>
-        <Col className="d-flex align-items-center" lg="6" md="5" sm="5" xs="12">
+
+        <Col className="d-flex align-items-center" lg="4" md="5" sm="5" xs="12">
           <GlobalFilter
             globalFilter={globalFilter}
             setGlobalFilter={setGlobalFilter}
           />
         </Col>
-        <Col lg="6" md="7" sm="7" xs="12">
+        <Col lg={4} className="gy-4  ">
           <Userdata />
         </Col>
       </Row>

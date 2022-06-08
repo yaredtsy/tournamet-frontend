@@ -26,11 +26,9 @@ function DashBoardPage() {
 
   useEffect(() => {
     if (!isLoading && !tournament) {
-      console.log(tournament);
-
       dispatch(scoreboardAction.getTournamentStart(""));
     }
-  }, [isLoading, tournament]);
+  }, []);
 
   useEffect(() => {
     if (tournament) {

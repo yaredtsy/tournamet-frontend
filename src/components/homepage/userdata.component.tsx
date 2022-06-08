@@ -26,19 +26,19 @@ const Userdata = () => {
           <span className="h6 fw-bolder text-uppercase text-white">
             username :{" "}
           </span>
-          <span className="fs-6 green">{player?.name}</span>
+          <span className="fs-6 green bolld">{player?.name}</span>
         </div>
         <div className="p-2">
           <span className="h6 fw-bolder text-uppercase text-white">
             rank :{" "}
           </span>
-          <span className="green">{player?.rank}</span>
+          <span className="fs-6 green bolld">{player?.rank}</span>
         </div>
         <div className="p-2">
           <span className="h6 fw-bolder text-uppercase text-white">
             score :{" "}
           </span>
-          <span className="fs-6 green">{player?.score}</span>
+          <span className="fs-6 green bolld">{player?.score}</span>
         </div>
       </div>
     );

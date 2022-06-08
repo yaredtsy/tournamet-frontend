@@ -46,7 +46,7 @@ function LoginPage() {
       .required("Please Enter you phone number")
       .matches(/^[90-9]*$/, "The phone number must contain only numbers")
       .matches(/^9/, "the phone must start with 9")
-      .min(9, "the phone number must be at least 9 characters"),
+      .length(9, "the phone number length must be 9"),
   });
 
   const handleSubmit = ({ phoneNumber }: { phoneNumber: string }) => {

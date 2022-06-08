@@ -25,7 +25,7 @@ function KukuluPage() {
   useEffect(() => {
     if (isLoading == false && tournament == null)
       dispatch(scoreboardAction.getTournamentStart(""));
-  }, [isLoading]);
+  }, []);
 
   if (isLoading) {
     return <Loading />;
