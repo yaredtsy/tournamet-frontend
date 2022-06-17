@@ -41,5 +41,6 @@ interface ScoreBoardType {
   players: PlayersType[] | null;
   tournament: TournamentType | null;
   isLoading: boolean;
+  tournamentLoaded: boolean;
   error: string | null;
 }

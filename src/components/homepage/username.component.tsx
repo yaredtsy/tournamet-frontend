@@ -15,8 +15,9 @@ import { User } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "firebase/auth";
 import * as Yup from "yup";
-
+import ReactGA from "react-ga4";
 import { scoreboardAction } from "store/scoreboard/slice";
+
 interface JoinModalProps {
   show: boolean;
   onClosed: () => void;
@@ -52,6 +53,10 @@ const JoinModal: React.FC<JoinModalProps> = ({ show, onClosed, username }) => {
       values: { username: any },
       { setErrors }: { setErrors: any }
     ) => {
+      ReactGA.event({
+        category: "join",
+        action: "tournament join",
+      });
       const player: PlayersJoinType = {
         createdAt: Timestamp.now(),
         id: user?.uid != null ? user.uid : "",

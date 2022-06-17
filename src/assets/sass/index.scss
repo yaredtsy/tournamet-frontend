@@ -241,3 +241,27 @@ body {
     height: 2px;
   }
 }
+.fit-content {
+  height: fit-content;
+}
+
+.banner {
+  background-color: rgba($color: #2cab00a8, $alpha: 0.6);
+  border-radius: 50px;
+  min-width: 80%;
+  font-family: "Fredoka One", cursive;
+}
+.banner-icon {
+  object-fit: cover;
+  height: 5rem;
+}
+.flip {
+  transform: rotateY(180deg);
+}
+
+@media screen and(max-width: 600px) {
+  .banner-icon {
+    object-fit: cover;
+    height: 25px;
+  }
+}

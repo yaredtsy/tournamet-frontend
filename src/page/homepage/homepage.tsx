@@ -1,5 +1,5 @@
 import CustomContainer from "components/Layouts/container.component";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardBody, CardImg, Col, Container, Row } from "reactstrap";
 import logo from "assets/img/log2.png";
 import kukulu from "assets/img/kukulu.png";
@@ -9,10 +9,11 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import useTypedSelector from "hooks/useTypedSelector";
 import { scoreboardAction } from "store/scoreboard/slice";
+import ReactGA from "react-ga4";
 
 const HomePage = () => {
   const dispatch = useDispatch();
-
+  const [price, setPrice] = useState("");
   const {
     tournament,
     isLoading,
@@ -27,6 +28,15 @@ const HomePage = () => {
     if (!isLoading && tournament == null)
       dispatch(scoreboardAction.getTournamentStart(""));
   }, []);
+
+  useEffect(() => {
+    console.log(tournament?.price[0].gameZonePrice);
+
+    if (tournament?.price.length) {
+      console.log(tournament?.price[0]);
+      setPrice(tournament?.price[0].gameZonePrice);
+    }
+  }, [tournament]);
 
   return (
     <CustomContainer>
@@ -53,11 +63,15 @@ const HomePage = () => {
                   <CardBody>
                     <Link
                       to="/kukulu"
+                      onClick={() => {
+                        ReactGA.event({
+                          category: "homepage",
+                          action: "join Kukulu ",
+                        });
+                      }}
                       className="btn btn-primary rounded w-100"
                     >
-                      {tournament
-                        ? "Join to win " + tournament.price[0].gameZonePrice
-                        : "Join"}
+                      {tournament ? "Join to win " + price : "Join"}
                     </Link>
                   </CardBody>
                 </Card>

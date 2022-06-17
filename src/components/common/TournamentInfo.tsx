@@ -12,12 +12,16 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
   const [status, setStatus] = useState("");
 
   const [pricepool, setPricepool] = useState("650 Birr");
+  const [green, setGreen] = useState("");
 
   useEffect(() => {
     if (tournament) {
-      setInterval(() => {
+      const terminator = setInterval(() => {
         let time = tournament.endesAt - Date.now();
-
+        if (time < 0) {
+          time = 0;
+          clearInterval(terminator);
+        }
         let second = Math.floor(time / 1000);
         let minutes = Math.floor(second / 60);
         let hour = Math.floor(minutes / 60);
@@ -29,8 +33,8 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           );
       }, 1000);
 
-      const sum = tournament.price.reduce((prev, current) => {
-        return prev + current.value;
+      const sum = tournament.price.reduce((prev, current: PriceType) => {
+        return prev + parseInt(current.gameZonePrice.split(" ")[0]);
       }, 0);
       setPricepool(sum.toString() + " Birr");
 
@@ -41,7 +45,10 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           break;
         case "STARTED":
           setStatus("Started");
-
+          break;
+        case "CLOSED":
+          setStatus("CLOSED");
+          setTimeLeft(`${0}d : ${0 % 24}h : ${0 % 60}m : ${0 % 60}s`);
           break;
         default:
           break;
@@ -60,8 +67,8 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
         >
           <div className="headers-info ">
             <div className="text-center text-capitalize">game status</div>
-            <div className="text-center fs-4 fw-bolder fs-sm">
-              {tournament ? status : "n/a"}
+            <div className="text-center fs-4 fw-bolder fs-sm ">
+              {tournament ? status : "Closed"}
             </div>
           </div>
           {/* <span className="text-white fs-1 ms-auto d-flex align-items-start">
@@ -77,7 +84,7 @@ const TournamentInfo: React.FC<TournamentInfoProps> = ({ tournament }) => {
           <div className="headers-info">
             <div className="text-center text-capitalize">timeleft</div>
             <div className="text-center fs-4 fw-bolder fs-sm">
-              {tournament ? timeleft : "n/a"}
+              {tournament ? timeleft : "00:00:00:00"}
             </div>
           </div>
         </Col>

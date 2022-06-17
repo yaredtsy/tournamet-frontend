@@ -25,7 +25,9 @@ interface EditUsernameModalProps {
   show: boolean;
   onClosed: () => void;
 }
-
+let tournamentType = "tournamentTEST";
+if (process.env.REACT_APP_TOURNAMENT_TYPE)
+  tournamentType = process.env.REACT_APP_TOURNAMENT_TYPE;
 const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
   show,
   onClosed,
@@ -33,7 +35,9 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
   const [users, loading, error] = useAuthState(auth);
   const dispatch = useDispatch();
   const validateScheme = Yup.object({
-    username: Yup.string().required("Please Enter you the code"),
+    username: Yup.string()
+      .matches(/^[0-9aA-zZ\s]+$/, "Only alphabets are allowed for this field ")
+      .required("Please Enter you the code"),
   });
   const { user }: { user: User | null } = useTypedSelector(
     (state) => state.user
@@ -62,35 +66,33 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
       { setErrors }: { setErrors: any }
     ) => {
       if (users?.displayName != values.username) {
-        console.log("onSubmit <=");
-
-        if (users) {
-          console.log("onSubmit if (user) {=><=} ");
-          console.log(user);
-
-          updateProfile(users, { displayName: values.username }).then(
-            (results) => {
-              console.log("result");
-
-              console.log(users);
-              if (values.username)
-                dispatch(
-                  userAction.userUpdated({
-                    ...users,
-                  })
-                );
-            }
-          );
-        }
         if (users && tournament) {
           if (players) {
             const isUnique = players.every(
-              (player) => player.name != values.username
+              (player) =>
+                player.name.toLowerCase().trim() !=
+                values.username.toLowerCase().trim()
             );
             if (isUnique) {
+              onClosed();
+
+              updateProfile(users, { displayName: values.username }).then(
+                (results) => {
+                  console.log("result");
+
+                  console.log(users);
+                  if (values.username)
+                    dispatch(
+                      userAction.userUpdated({
+                        ...users,
+                      })
+                    );
+                }
+              );
+
               const ref = doc(
                 db,
-                "tournamentTEST",
+                tournamentType,
                 tournament.id,
                 "user",
                 users.uid
@@ -105,15 +107,31 @@ const EditUsernameModal: React.FC<EditUsernameModalProps> = ({
                     })
                   );
               });
-              onClosed();
             } else {
-              console.log("login error");
-
               setErrors({ username: "username is alredy taken." });
             }
           } else onClosed();
+        } else {
+          if (users) {
+            updateProfile(users, { displayName: values.username }).then(
+              (results) => {
+                console.log("result");
+
+                console.log(users);
+                if (values.username)
+                  dispatch(
+                    userAction.userUpdated({
+                      ...users,
+                    })
+                  );
+              }
+            );
+          }
+          onClosed();
         }
-      } else onClosed();
+      } else {
+        onClosed();
+      }
     },
   });
 

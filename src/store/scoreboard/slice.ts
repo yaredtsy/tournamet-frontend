@@ -6,6 +6,7 @@ const initialState: ScoreBoardType = {
   players: null,
   error: null,
   isLoading: false,
+  tournamentLoaded: false,
 };
 
 export const scoreBoardSlice = createSlice({
@@ -14,6 +15,7 @@ export const scoreBoardSlice = createSlice({
   reducers: {
     getTournamentStart: (state, action: PayloadAction<string>) => {
       state.isLoading = true;
+      state.tournamentLoaded = true;
     },
 
     getTournamentSuccess: (

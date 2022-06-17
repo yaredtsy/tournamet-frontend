@@ -14,6 +14,7 @@ const Userdata = () => {
       (player) => player.id === state.user.user?.uid
     )
   );
+
   const { user }: { user: User | null } = useTypedSelector(
     (state) => state.user
   );

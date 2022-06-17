@@ -10,6 +10,7 @@ import Userdata from "components/homepage/userdata.component";
 import CustomContainer from "components/Layouts/container.component";
 
 import Loading from "components/common/loading";
+import RankCorrector from "components/common/RankCorrector";
 
 function DashBoardPage() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ function DashBoardPage() {
   else
     return (
       <CustomContainer className="kukulu-background ">
+        <RankCorrector />
         <div className="container-fluid filter mb-5">
           <Container className="mb-5">
             <Row className="align-items-center mb-4 d-flex ">

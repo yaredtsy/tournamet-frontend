@@ -16,20 +16,25 @@ import {
   setDoc,
   doc,
   getDoc,
-  DocumentReference,
   DocumentSnapshot,
+  limit,
   updateDoc,
 } from "firebase/firestore/lite";
+
 // import { onSnapshot, collection as collection2, } from "firebase/firestore";
+let tournamentType = "tournamentTEST";
+if (process.env.REACT_APP_TOURNAMENT_TYPE)
+  tournamentType = process.env.REACT_APP_TOURNAMENT_TYPE;
 
 export function* getTournamentAsync() {
   try {
     console.log("getTournamentAsync");
 
-    const collections = collection(db, "tournamentTEST");
+    const collections = collection(db, tournamentType);
     // const collections:CollectionReference<DocumentData> = yield call(collection,db,'tournamentPRO')
     const querys: QueryConstraint = where("state", "!=", "CLOSED");
-    const tournament: Query = query(collections, querys);
+    // const orde: QueryConstraint = orderBy("createdAt")
+    const tournament: Query = query(collections, orderBy("createdAt", "desc"));
 
     const documents: QuerySnapshot = yield call(getDocs, tournament);
 
@@ -57,14 +62,11 @@ export function* getTournamentStart() {
 
 export function* getPlayersAsync(action: { payload: TournamentType }) {
   try {
-    const collec = collection(db, "tournamentTEST", action.payload.id, "user");
+    const collec = collection(db, tournamentType, action.payload.id, "user");
 
-    const orderd: QueryConstraint = orderBy("score", "desc");
+    const orderd: QueryConstraint = orderBy("rank", "asc");
 
-    const orderdQuery: Query = query(
-      collec,
-      where("tournamentJoined", "==", true)
-    );
+    const orderdQuery: Query = query(collec, orderd);
 
     // onSnapshot(orderdQuery, (snapshot) => {
     //   console.log();
@@ -93,7 +95,6 @@ export function* getPlayersAsync(action: { payload: TournamentType }) {
 
         playersList.push(playerData);
       });
-      playersList.sort((a, b) => a.rank - b.rank);
     }
     yield put(scoreboardAction.getPlayersSuccess(playersList));
   } catch (error: any) {
@@ -113,7 +114,7 @@ export function* joinTournamenAsync(action: {
   try {
     const collec = doc(
       db,
-      "tournamentTEST",
+      tournamentType,
       action.payload.tournament.id,
       "user",
       action.payload.player.id
@@ -132,7 +133,7 @@ export function* joinTournamenAsync(action: {
 
     yield put(scoreboardAction.joinTournamentSuccess(action.payload.player));
     const form = {
-      tournamentDbname: "tournamentTEST",
+      tournamentDbname: tournamentType,
       tournamentId: action.payload.tournament.id,
     };
     yield call(

@@ -10,7 +10,7 @@ import { userAction } from "store/user/slice";
 import { ProtectedRoute, PublicRoutes } from "components/routes";
 
 import "bootstrap/dist/css/bootstrap.css";
-
+import ReactGA from "react-ga4";
 import TrasPage from "page/homepage/tras-page";
 import FetaPage from "page/homepage/feta-page";
 import Loading from "components/common/loading";
@@ -19,6 +19,10 @@ import HomePage from "page/homepage/homepage";
 function App() {
   const dispatch = useDispatch();
   const [user, loading, error] = useAuthState(auth);
+
+  useEffect(() => {
+    ReactGA.initialize("G-92DBLG331K");
+  }, []);
 
   useEffect(() => {
     if (user) {
